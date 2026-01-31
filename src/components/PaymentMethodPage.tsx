@@ -145,9 +145,8 @@ export function PaymentMethodPage() {
 
   // Send order emails using Brevo (via local server)
   const sendOrderEmail = async (orderId: string, orderData: any) => {
-    try {
-      const itemsList = orderData.items.map((item: any) =>
-        `<tr>
+    const itemsList = orderData.items.map((item: any) =>
+      `<tr>
           <td style="padding: 12px 0; border-bottom: 1px solid #edf2f7; width: 60px;">
             ${item.image ? `<img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px; border: 1px solid #e2e8f0;">` : `<div style="width: 50px; height: 50px; background: #f8fafc; border-radius: 8px; text-align: center; line-height: 50px; font-size: 20px; border: 1px solid #e2e8f0;">🛒</div>`}
           </td>
@@ -158,19 +157,19 @@ export function PaymentMethodPage() {
           <td style="padding: 12px 10px; border-bottom: 1px solid #edf2f7; color: #4a5568; text-align: center; font-weight: 600;">x${item.quantity}</td>
           <td style="padding: 12px 10px; border-bottom: 1px solid #edf2f7; color: #d97706; font-weight: 700; text-align: right; font-size: 15px;">Rs.${item.price * item.quantity}</td>
         </tr>`
-      ).join('');
+    ).join('');
 
-      // Shared CSS styles for premium look
-      const bodyStyle = `background-color: #f7fafc; padding: 40px 20px; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;`;
-      const cardStyle = `background-color: #ffffff; max-width: 600px; margin: 0 auto; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); border: 1px solid #e2e8f0;`;
-      const headerStyle = `background: linear-gradient(135deg, #d97706 0%, #b45309 100%); padding: 35px 20px; text-align: center; color: #ffffff;`;
-      const sectionHeader = `font-size: 18px; font-weight: 700; color: #2d3748; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 2px solid #f6ad55; display: inline-block;`;
-      const footerStyle = `text-align: center; padding: 30px 20px; color: #718096; font-size: 13px; line-height: 1.5;`;
-      const buttonStyle = `display: inline-block; padding: 14px 30px; background-color: #25D366; color: #ffffff; text-decoration: none; border-radius: 10px; font-weight: 700; font-size: 16px; margin-top: 20px; box-shadow: 0 4px 14px 0 rgba(37, 211, 102, 0.39);`;
+    // Shared CSS styles for premium look
+    const bodyStyle = `background-color: #f7fafc; padding: 40px 20px; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;`;
+    const cardStyle = `background-color: #ffffff; max-width: 600px; margin: 0 auto; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); border: 1px solid #e2e8f0;`;
+    const headerStyle = `background: linear-gradient(135deg, #d97706 0%, #b45309 100%); padding: 35px 20px; text-align: center; color: #ffffff;`;
+    const sectionHeader = `font-size: 18px; font-weight: 700; color: #2d3748; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 2px solid #f6ad55; display: inline-block;`;
+    const footerStyle = `text-align: center; padding: 30px 20px; color: #718096; font-size: 13px; line-height: 1.5;`;
+    const buttonStyle = `display: inline-block; padding: 14px 30px; background-color: #25D366; color: #ffffff; text-decoration: none; border-radius: 10px; font-weight: 700; font-size: 16px; margin-top: 20px; box-shadow: 0 4px 14px 0 rgba(37, 211, 102, 0.39);`;
 
-      // REDESIGNED CUSTOMER EMAIL
-      if (orderData.customerInfo.email) {
-        const customerHtml = `
+    // REDESIGNED CUSTOMER EMAIL
+    if (orderData.customerInfo.email) {
+      const customerHtml = `
           <div style="${bodyStyle}">
             <div style="${cardStyle}">
               <div style="${headerStyle}">
@@ -230,22 +229,20 @@ export function PaymentMethodPage() {
           </div>
         `;
 
-        await fetch(EMAIL_API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            to: orderData.customerInfo.email,
-            subject: `✅ Order Confirmed: #${orderId}`,
-            htmlContent: customerHtml
-          })
-        });
+      const response = await fetch(EMAIL_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: orderData.customerInfo.email,
+          subject: `✅ Order Confirmed: #${orderId}`,
+          htmlContent: customerHtml
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to send email');
       }
-
-      // ADMIN EMAIL REMOVED TO OPTIMIZE CAPACITY (Admin notified via Brevo App)
-      // console.log("Order confirmed. Admin notified via app logs.");
-
-    } catch (error) {
-      console.error('Email sending failed', error);
     }
   };
 
