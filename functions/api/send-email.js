@@ -1,5 +1,6 @@
 /**
  * Cloudflare Pages Function for sending emails via Brevo
+ * Triggering redeploy to sync environment variables.
  */
 export async function onRequestPost({ request, env }) {
     try {
