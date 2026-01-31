@@ -62,11 +62,13 @@ export default function App() {
               >
                 <Router>
                   <ScrollToTop />
-                  <div className="flex-1 flex flex-col relative bg-slate-50 dark:bg-slate-950 transition-colors duration-500">
-                    <Header />
+                  <div className="flex-1 flex flex-col relative bg-slate-50 dark:bg-slate-950 transition-colors duration-500 overflow-x-hidden">
+                    <div className="relative z-50">
+                      <Header />
+                    </div>
 
                     <main
-                      className="flex-1 relative z-20 bg-white dark:bg-slate-900 rounded-b-[3.5rem] shadow-[0_30px_60px_rgba(0,0,0,0.12)] dark:shadow-[0_30px_60px_rgba(0,0,0,0.5)] overflow-hidden transition-colors duration-500"
+                      className="flex-1 relative z-20 bg-white dark:bg-slate-900 rounded-b-[4rem] shadow-[0_30px_60px_rgba(0,0,0,0.12)] dark:shadow-[0_30px_60px_rgba(0,0,0,0.5)] overflow-hidden transition-colors duration-500"
                       style={{ marginBottom: `${footerHeight}px` }}
                     >
                       <Suspense fallback={<LoadingFallback />}>
@@ -92,7 +94,7 @@ export default function App() {
 
                     <div
                       ref={footerMeasureRef}
-                      className="fixed bottom-0 left-0 right-0 z-0 bg-slate-900 dark:bg-black"
+                      className="fixed bottom-0 left-0 right-0 z-0 bg-[#0A0908]"
                     >
                       <Footer />
                     </div>

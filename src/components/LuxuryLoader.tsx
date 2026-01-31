@@ -1,3 +1,4 @@
+```
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -84,7 +85,7 @@ export function LuxuryLoader({ onComplete }: { onComplete: () => void }) {
                         {/* Shimmering Liquid Gold Bar */}
                         <motion.div
                             className="h-full bg-gradient-to-r from-amber-600 via-amber-400 to-amber-200 relative shadow-[0_0_15px_rgba(251,191,36,0.3)]"
-                            style={{ width: `${progress}%` }}
+                            style={{ width: `${ progress }% ` }}
                             initial={{ width: "0%" }}
                         />
                         {/* Glossy Overlay */}
