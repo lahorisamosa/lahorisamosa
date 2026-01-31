@@ -26,8 +26,11 @@ const ShippingInfoPage = React.lazy(() => import('./components/ShippingInfoPage'
 
 
 import { ThemeProvider } from './components/ThemeContext';
+import { LuxuryLoader } from './components/LuxuryLoader';
+import { AnimatePresence, motion } from 'motion/react';
 
 export default function App() {
+  const [loading, setLoading] = React.useState(true);
   const [footerHeight, setFooterHeight] = React.useState(0);
   const footerRef = React.useRef<HTMLDivElement>(null);
 
@@ -48,46 +51,59 @@ export default function App() {
     <ThemeProvider>
       <ErrorBoundary>
         <CartProvider>
-          <Router>
-            <ScrollToTop />
-            <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-500 flex flex-col relative">
-              <Header />
-
-              <main
-                className="flex-1 relative z-10 bg-white dark:bg-slate-900 rounded-b-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.2)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden transition-colors duration-500"
-                style={{ marginBottom: `${footerHeight}px` }}
+          <AnimatePresence mode="wait">
+            {loading ? (
+              <LuxuryLoader key="loader" onComplete={() => setLoading(false)} />
+            ) : (
+              <motion.div
+                key="content"
+                initial={{ opacity: 0, clipPath: 'inset(0% 50% 0% 50%)' }}
+                animate={{ opacity: 1, clipPath: 'inset(0% 0% 0% 0%)' }}
+                transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1] }}
+                className="flex flex-col min-h-screen"
               >
-                <Suspense fallback={<LoadingFallback />}>
-                  <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/products" element={<ProductsPage />} />
-                    <Route path="/product/:id" element={<ProductDetailPage />} />
-                    <Route path="/cart" element={<CartPage />} />
-                    <Route path="/checkout" element={<CheckoutPage />} />
-                    <Route path="/payment-method" element={<PaymentMethodPage />} />
-                    <Route path="/confirmation/:orderId" element={<ConfirmationPage />} />
-                    <Route path="/confirmation" element={<PaymentConfirmation />} />
-                    <Route path="/about" element={<AboutPage />} />
-                    <Route path="/contact" element={<ContactPage />} />
-                    <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-                    <Route path="/terms-of-service" element={<TermsOfServicePage />} />
-                    <Route path="/shipping-info" element={<ShippingInfoPage />} />
-                    {/* Handle preview page and any other unmatched routes */}
-                    <Route path="/preview_page.html" element={<Navigate to="/" replace />} />
-                    <Route path="*" element={<Navigate to="/" replace />} />
-                  </Routes>
-                </Suspense>
-              </main>
+                <Router>
+                  <ScrollToTop />
+                  <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-500 flex flex-col relative text-slate-900 dark:text-slate-100">
+                    <Header />
 
-              <div
-                ref={footerRef}
-                className="fixed bottom-0 left-0 right-0 z-0 bg-slate-950 dark:bg-black transition-colors duration-500"
-              >
-                <Footer />
-              </div>
-            </div>
-            <SideCart />
-          </Router>
+                    <main
+                      className="flex-1 relative z-10 bg-white dark:bg-slate-900 rounded-b-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.2)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden transition-colors duration-500"
+                      style={{ marginBottom: `${footerHeight}px` }}
+                    >
+                      <Suspense fallback={<LoadingFallback />}>
+                        <Routes>
+                          <Route path="/" element={<HomePage />} />
+                          <Route path="/products" element={<ProductsPage />} />
+                          <Route path="/product/:id" element={<ProductDetailPage />} />
+                          <Route path="/cart" element={<CartPage />} />
+                          <Route path="/checkout" element={<CheckoutPage />} />
+                          <Route path="/payment-method" element={<PaymentMethodPage />} />
+                          <Route path="/confirmation/:orderId" element={<ConfirmationPage />} />
+                          <Route path="/confirmation" element={<PaymentConfirmation />} />
+                          <Route path="/about" element={<AboutPage />} />
+                          <Route path="/contact" element={<ContactPage />} />
+                          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+                          <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+                          <Route path="/shipping-info" element={<ShippingInfoPage />} />
+                          <Route path="/preview_page.html" element={<Navigate to="/" replace />} />
+                          <Route path="*" element={<Navigate to="/" replace />} />
+                        </Routes>
+                      </Suspense>
+                    </main>
+
+                    <div
+                      ref={footerRef}
+                      className="fixed bottom-0 left-0 right-0 z-0 bg-slate-950 dark:bg-black transition-colors duration-500"
+                    >
+                      <Footer />
+                    </div>
+                  </div>
+                  <SideCart />
+                </Router>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </CartProvider>
       </ErrorBoundary>
     </ThemeProvider>
