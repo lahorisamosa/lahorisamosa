@@ -2,8 +2,4 @@ name = "lahori-samosa"
 compatibility_date = "2024-03-01"
 pages_build_output_dir = "build"
 
-[vars]
-# Add these in the Cloudflare Dashboard for production
-# BREVO_API_KEY = "your_key"
-# BREVO_SENDER_EMAIL = "your_email"
-# BREVO_SENDER_NAME = "Lahori Samosa"
+
