@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { ShoppingCart, Star, ArrowLeft, Plus, Minus } from 'lucide-react';
+import { ShoppingCart, Star, ArrowLeft, Plus, Minus, CheckCircle, ShieldCheck, Clock } from 'lucide-react';
 import { useCart, Product } from './CartContext';
 import { ResponsiveImage } from './ResponsiveImage';
 
@@ -67,10 +67,10 @@ export function ProductDetailPage() {
 
   if (!product) {
     return (
-      <div className="pt-20 min-h-screen flex items-center justify-center">
+      <div className="pt-20 min-h-screen flex items-center justify-center bg-slate-50">
         <div className="text-center">
-          <h2 className="text-2xl text-gray-900 mb-4">Product not found</h2>
-          <Link to="/products" className="text-orange-600 hover:text-orange-700">
+          <h2 className="text-2xl text-slate-900 mb-4 font-serif">Product not found</h2>
+          <Link to="/products" className="text-emerald-600 hover:text-emerald-700 font-medium">
             Return to Products
           </Link>
         </div>
@@ -85,41 +85,57 @@ export function ProductDetailPage() {
   };
 
   return (
-    <div className="pt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="pt-24 min-h-screen bg-slate-50 relative overflow-hidden">
+      {/* Background Gradients */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-100/40 rounded-full blur-[100px] pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-amber-100/40 rounded-full blur-[100px] pointer-events-none"></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
         {/* Back Button */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           className="mb-8"
         >
-          <Link 
+          <Link
             to="/products"
-            className="inline-flex items-center text-orange-600 hover:text-orange-700 transition-colors"
+            className="inline-flex items-center text-slate-600 hover:text-emerald-700 transition-colors group"
           >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Products
+            <div className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center mr-2 group-hover:border-emerald-500 group-hover:bg-emerald-50 transition-all">
+              <ArrowLeft className="w-4 h-4 group-hover:text-emerald-700" />
+            </div>
+            <span className="font-medium">Back to Products</span>
           </Link>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           {/* Product Image */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="relative"
           >
-            <div className="aspect-square bg-gradient-to-br from-orange-50 to-yellow-50 rounded-2xl overflow-hidden">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.4 }}
+              className="aspect-square bg-white rounded-3xl overflow-hidden shadow-2xl border border-slate-100 relative z-10"
+            >
               <ResponsiveImage
                 src={product.image}
                 alt={product.name}
-                className="w-full h-full hover:scale-105 transition-transform duration-500"
+                className="w-full h-full object-cover"
                 aspectRatio="1/1"
-                objectFit="cover"
                 priority={true}
               />
-            </div>
+
+              {/* Overlay Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+            </motion.div>
+
+            {/* Decorative Elements */}
+            <div className="absolute -bottom-6 -right-6 w-full h-full border-2 border-amber-400/30 rounded-3xl -z-10"></div>
+            <div className="absolute -top-6 -left-6 w-full h-full border-2 border-emerald-400/20 rounded-3xl -z-10"></div>
           </motion.div>
 
           {/* Product Details */}
@@ -127,110 +143,102 @@ export function ProductDetailPage() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
-            className="space-y-6"
+            className="space-y-8"
           >
-            {/* Rating */}
-            <div className="flex items-center space-x-2">
-              <div className="flex items-center">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                ))}
+            <div className="space-y-4">
+              {/* Rating */}
+              <div className="flex items-center space-x-2">
+                <div className="flex items-center bg-amber-50 px-2 py-1 rounded-lg border border-amber-100">
+                  <Star className="w-4 h-4 text-amber-500 fill-amber-500 mr-1" />
+                  <span className="font-bold text-amber-700 text-sm">4.8</span>
+                </div>
+                <span className="text-slate-500 text-sm font-medium">124 verified reviews</span>
               </div>
-              <span className="text-gray-600">(4.8/5 - 124 reviews)</span>
+
+              {/* Product Name */}
+              <h1 className="text-4xl lg:text-5xl text-slate-900 brand-font leading-tight">
+                {product.name}
+              </h1>
+
+              {/* Price */}
+              <div className="flex items-baseline space-x-3">
+                <span className="text-3xl font-bold text-emerald-700">Rs.{product.price}</span>
+                <span className="text-slate-400 text-lg">/ pack</span>
+              </div>
             </div>
 
-            {/* Product Name */}
-            <h1 className="text-3xl lg:text-4xl text-gray-900">
-              {product.name}
-            </h1>
-
-            {/* Price */}
-            <div className="text-3xl text-orange-600">
-              Rs.{product.price}
-            </div>
+            <div className="h-px bg-slate-200"></div>
 
             {/* Description */}
-            <p className="text-gray-600 text-lg leading-relaxed">
+            <p className="text-slate-600 text-lg leading-relaxed">
               {product.description}
             </p>
 
-            {/* Features */}
-            <div className="space-y-3">
-              <h3 className="text-lg text-gray-900">Features:</h3>
-              <ul className="space-y-2 text-gray-600">
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-orange-600 rounded-full mr-3"></span>
-                  Premium quality ingredients
-                </li>
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-orange-600 rounded-full mr-3"></span>
-                  Ready to cook from frozen
-                </li>
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-orange-600 rounded-full mr-3"></span>
-                  Authentic Pakistani flavors
-                </li>
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-orange-600 rounded-full mr-3"></span>
-                  No artificial preservatives
-                </li>
-              </ul>
+            {/* Features Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                { icon: ShieldCheck, text: "Premium Ingredients" },
+                { icon: Clock, text: "Ready in 10 mins" },
+                { icon: CheckCircle, text: "Authentic Taste" },
+                { icon: Star, text: "No Preservatives" },
+              ].map((feature, i) => (
+                <div key={i} className="flex items-center space-x-3 bg-white p-3 rounded-xl border border-slate-100 shadow-sm">
+                  <div className="bg-emerald-50 p-2 rounded-lg text-emerald-600">
+                    <feature.icon className="w-4 h-4" />
+                  </div>
+                  <span className="text-slate-700 font-medium text-sm">{feature.text}</span>
+                </div>
+              ))}
             </div>
 
-            {/* Quantity Selector */}
-            <div className="space-y-4">
-              <h3 className="text-lg text-gray-900">Quantity:</h3>
-              <div className="flex items-center space-x-4">
-                <div className="flex items-center border border-gray-300 rounded-lg">
+            {/* Controls */}
+            <div className="bg-white p-6 rounded-2xl shadow-lg border border-slate-100 space-y-6">
+              {/* Quantity Selector */}
+              <div className="flex items-center justify-between">
+                <span className="text-lg font-medium text-slate-900">Quantity</span>
+                <div className="flex items-center bg-slate-50 rounded-xl border border-slate-200 p-1">
                   <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
+                    whileHover={{ backgroundColor: '#fff', scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="p-3 hover:bg-gray-100 transition-colors"
+                    className="p-3 rounded-lg text-slate-600 hover:text-emerald-700 hover:shadow-sm transition-all"
                   >
                     <Minus className="w-4 h-4" />
                   </motion.button>
-                  <span className="px-4 py-3 text-lg">{quantity}</span>
+                  <span className="w-12 text-center font-bold text-slate-900 text-lg">{quantity}</span>
                   <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
+                    whileHover={{ backgroundColor: '#fff', scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => setQuantity(quantity + 1)}
-                    className="p-3 hover:bg-gray-100 transition-colors"
+                    className="p-3 rounded-lg text-slate-600 hover:text-emerald-700 hover:shadow-sm transition-all"
                   >
                     <Plus className="w-4 h-4" />
                   </motion.button>
                 </div>
-                <span className="text-gray-600">
-                  Total: Rs.{product.price * quantity}
-                </span>
               </div>
+
+              <div className="flex items-center justify-between text-sm text-slate-500 pt-2 border-t border-slate-100">
+                <span>Total Price</span>
+                <span className="text-2xl font-bold text-emerald-800">Rs.{product.price * quantity}</span>
+              </div>
+
+              {/* Add to Cart Button */}
+              <motion.button
+                whileHover={{ scale: 1.02, boxShadow: "0 10px 25px -5px rgba(5, 150, 105, 0.4)" }}
+                whileTap={{ scale: 0.98 }}
+                onClick={handleAddToCart}
+                className="w-full flex items-center justify-center space-x-3 px-8 py-4 bg-gradient-to-r from-emerald-700 to-emerald-600 text-white text-lg rounded-xl font-bold hover:shadow-lg transition-all"
+              >
+                <ShoppingCart className="w-5 h-5" />
+                <span>Add to Cart</span>
+              </motion.button>
             </div>
 
-            {/* Add to Cart Button */}
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={handleAddToCart}
-              className="w-full flex items-center justify-center space-x-3 px-8 py-4 bg-orange-600 text-white text-lg rounded-lg hover:bg-orange-700 transition-colors shadow-lg"
-            >
-              <ShoppingCart className="w-5 h-5" />
-              <span>Add to Cart</span>
-            </motion.button>
-
             {/* Additional Info */}
-            <div className="border-t pt-6 space-y-4 text-sm text-gray-600">
-              <div className="flex justify-between">
-                <span>Cooking Time:</span>
-                <span>8-10 minutes</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Storage:</span>
-                <span>Keep frozen until ready to cook</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Shelf Life:</span>
-                <span>6 months from date of manufacture</span>
-              </div>
+            <div className="flex gap-6 text-sm text-slate-500 justify-center">
+              <span className="flex items-center"><Clock className="w-4 h-4 mr-1" /> Fast Delivery</span>
+              <span className="w-px h-4 bg-slate-300"></span>
+              <span className="flex items-center"><ShieldCheck className="w-4 h-4 mr-1" /> Quality Guarantee</span>
             </div>
           </motion.div>
         </div>

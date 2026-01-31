@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Facebook, Instagram, MessageCircle, Phone, Mail, MapPin } from 'lucide-react';
+import { Facebook, Instagram, MessageCircle, Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
 
 export function Footer() {
   const quickLinks = [
@@ -11,7 +11,6 @@ export function Footer() {
   ];
 
   const handleLinkClick = () => {
-    // Scroll to top when footer link is clicked
     window.scrollTo({
       top: 0,
       left: 0,
@@ -26,129 +25,139 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-white border-t border-slate-200 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-96 h-px bg-gradient-to-r from-transparent via-emerald-200 to-transparent"></div>
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+    <footer className="bg-emerald-950 text-white relative overflow-hidden border-t border-emerald-900">
+      {/* Abstract Background Shapes */}
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-emerald-900/20 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-amber-600/10 rounded-full blur-[100px] translate-x-1/2 translate-y-1/2 pointer-events-none"></div>
+
+      {/* Glass Texture Overlay */}
+      <div className="absolute inset-0 bg-white/[0.02] pointer-events-none"></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+
           {/* Brand Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="space-y-6 lg:col-span-2"
-          >
-            <div className="space-y-4">
-              <div className="text-2xl text-slate-900 brand-font tracking-tight">
-                Lahori<span className="text-emerald-800 italic"> Samosa</span>
+          <div className="space-y-6 lg:col-span-1">
+            <Link to="/" onClick={handleLinkClick} className="block group">
+              <div className="text-3xl brand-font tracking-tight text-white group-hover:opacity-90 transition-opacity">
+                Lahori<span className="text-amber-400 italic"> Samosa</span>
               </div>
-              <p className="text-slate-600 max-w-md leading-relaxed">
-                Discover our premium range of frozen foods crafted with authentic Pakistani flavors. 
-                From classic samosas to innovative rolls, we bring traditional taste with modern convenience.
-              </p>
-            </div>
-            
-            {/* Social Media */}
-            <div className="flex space-x-4">
+            </Link>
+            <p className="text-emerald-100/70 text-sm leading-relaxed max-w-xs">
+              Experience the authentic taste of Lahore. Premium handcrafted frozen foods delivered to your doorstep.
+            </p>
+
+            {/* Social Icons */}
+            <div className="flex gap-4 pt-2">
               {socialLinks.map((social) => (
                 <motion.a
                   key={social.label}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ 
-                    scale: 1.1, 
-                    y: -2,
-                    boxShadow: "0 8px 25px -8px rgba(6, 78, 59, 0.3)"
-                  }}
+                  whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-10 h-10 bg-slate-100 hover:bg-emerald-100 rounded-lg flex items-center justify-center text-slate-600 hover:text-emerald-700 transition-all duration-300"
+                  className="w-10 h-10 bg-white/5 hover:bg-amber-500 border border-white/10 hover:border-amber-400 rounded-lg flex items-center justify-center text-white transition-all duration-300 shadow-lg"
                   aria-label={social.label}
                 >
                   <social.icon className="w-5 h-5" />
                 </motion.a>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* Quick Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="space-y-6"
-          >
-            <h3 className="text-lg text-slate-900 font-medium">Quick Links</h3>
-            <ul className="space-y-3">
+          <div className="lg:pl-8">
+            <h3 className="text-lg font-bold text-amber-400 mb-6 font-serif tracking-wide">Quick Links</h3>
+            <ul className="space-y-4">
               {quickLinks.map((link) => (
                 <li key={link.name}>
                   <Link
                     to={link.path}
                     onClick={handleLinkClick}
-                    className="text-slate-600 hover:text-emerald-700 transition-colors text-sm group"
+                    className="group flex items-center text-sm text-emerald-100/70 hover:text-white transition-colors"
                   >
-                    <span className="group-hover:translate-x-1 transition-transform inline-block">
-                      {link.name}
-                    </span>
+                    <span className="w-1.5 h-1.5 bg-amber-500 rounded-full mr-0 opacity-0 group-hover:opacity-100 group-hover:mr-2 transition-all duration-300"></span>
+                    {link.name}
                   </Link>
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
           {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="space-y-6"
-          >
-            <h3 className="text-lg text-slate-900 font-medium">Get In Touch</h3>
-            <div className="space-y-4">
-              <div className="flex items-center space-x-3 text-sm text-slate-600">
-                <div className="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
-                  <Phone className="w-4 h-4 text-emerald-700" />
+          <div>
+            <h3 className="text-lg font-bold text-amber-400 mb-6 font-serif tracking-wide">Contact Us</h3>
+            <ul className="space-y-5">
+              <li className="flex items-start gap-4 text-sm text-emerald-100/80 group">
+                <div className="p-2 bg-white/5 rounded-lg border border-white/10 group-hover:border-amber-500/50 transition-colors">
+                  <Phone className="w-4 h-4 text-amber-400" />
                 </div>
-                <span>{import.meta.env.VITE_BUSINESS_PHONE || "+92 324 4060113"}</span>
-              </div>
-              <div className="flex items-center space-x-3 text-sm text-slate-600">
-                <div className="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
-                  <Mail className="w-4 h-4 text-emerald-700" />
+                <div className="space-y-1">
+                  <span className="block text-xs text-emerald-100/50 uppercase tracking-wider font-semibold">Phone</span>
+                  <span className="block font-medium text-white">{import.meta.env.VITE_BUSINESS_PHONE || "+92 324 4060113"}</span>
                 </div>
-                <span>{import.meta.env.VITE_BUSINESS_EMAIL || "samosastash@gmail.com"}</span>
-              </div>
-              <div className="flex items-center space-x-3 text-sm text-slate-600">
-                <div className="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
-                  <MapPin className="w-4 h-4 text-emerald-700" />
+              </li>
+
+              <li className="flex items-start gap-4 text-sm text-emerald-100/80 group">
+                <div className="p-2 bg-white/5 rounded-lg border border-white/10 group-hover:border-amber-500/50 transition-colors">
+                  <Mail className="w-4 h-4 text-amber-400" />
                 </div>
-                <span>{import.meta.env.VITE_BUSINESS_LOCATION || "Lahore, Pakistan"}</span>
+                <div className="space-y-1">
+                  <span className="block text-xs text-emerald-100/50 uppercase tracking-wider font-semibold">Email</span>
+                  <span className="block font-medium text-white">{import.meta.env.VITE_BUSINESS_EMAIL || "samosastash@gmail.com"}</span>
+                </div>
+              </li>
+
+              <li className="flex items-start gap-4 text-sm text-emerald-100/80 group">
+                <div className="p-2 bg-white/5 rounded-lg border border-white/10 group-hover:border-amber-500/50 transition-colors">
+                  <MapPin className="w-4 h-4 text-amber-400" />
+                </div>
+                <div className="space-y-1">
+                  <span className="block text-xs text-emerald-100/50 uppercase tracking-wider font-semibold">Location</span>
+                  <span className="block font-medium text-white">{import.meta.env.VITE_BUSINESS_LOCATION || "Lahore, Pakistan"}</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          {/* Newsletter / CTA */}
+          <div>
+            <h3 className="text-lg font-bold text-amber-400 mb-6 font-serif tracking-wide">Stay Updated</h3>
+            <p className="text-sm text-emerald-100/70 mb-4 leading-relaxed">
+              Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.
+            </p>
+            <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
+              <div className="relative">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 pl-4 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-amber-500_50 focus:ring-1 focus:ring-amber-500/50 transition-all"
+                />
+                <button type="submit" className="absolute right-1 top-1 p-2 bg-amber-500 hover:bg-amber-400 text-emerald-950 rounded-md transition-colors">
+                  <ArrowRight className="w-4 h-4" />
+                </button>
               </div>
-            </div>
-          </motion.div>
+            </form>
+          </div>
+
         </div>
 
-        {/* Bottom Section */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="border-t border-slate-200 mt-12 pt-8"
-        >
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-sm text-slate-500">
-              © 2025 Lahori Samosa. All rights reserved.
-            </p>
-            <div className="flex space-x-6 text-sm text-slate-500">
-              <Link to="/privacy-policy" onClick={handleLinkClick} className="hover:text-slate-700 transition-colors">Privacy Policy</Link>
-              <Link to="/terms-of-service" onClick={handleLinkClick} className="hover:text-slate-700 transition-colors">Terms of Service</Link>
-              <Link to="/shipping-info" onClick={handleLinkClick} className="hover:text-slate-700 transition-colors">Shipping Info</Link>
-            </div>
+        {/* Divider */}
+        <div className="my-12 h-px bg-gradient-to-r from-transparent via-emerald-800 to-transparent"></div>
+
+        {/* Bottom Bar */}
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6 md:gap-0">
+          <p className="text-sm text-emerald-100/50">
+            © {new Date().getFullYear()} Lahori Samosa. All rights reserved.
+          </p>
+
+          <div className="flex flex-wrap justify-center gap-8 text-sm text-emerald-100/60 font-medium">
+            <Link to="/privacy-policy" onClick={handleLinkClick} className="hover:text-amber-400 transition-colors">Privacy Policy</Link>
+            <Link to="/terms-of-service" onClick={handleLinkClick} className="hover:text-amber-400 transition-colors">Terms of Service</Link>
+            <Link to="/shipping-info" onClick={handleLinkClick} className="hover:text-amber-400 transition-colors">Shipping Info</Link>
           </div>
-        </motion.div>
+        </div>
       </div>
     </footer>
   );

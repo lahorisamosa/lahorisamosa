@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { ShoppingCart, Star, Plus } from 'lucide-react';
+import { ShoppingCart, Star, Plus, ArrowRight } from 'lucide-react';
 import { useCart, Product } from './CartContext';
 import { ResponsiveImage } from './ResponsiveImage';
 
@@ -68,32 +68,31 @@ export function ProductsPage() {
   };
 
   return (
-    <div className="pt-16 bg-white min-h-screen">
+    <div className="pt-16 bg-slate-50 min-h-screen">
       {/* Page Header */}
-      <section className="py-16 bg-gradient-to-br from-slate-50 to-gray-50 relative overflow-hidden">
-        {/* Background decoration */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-emerald-100/30 to-transparent rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-amber-100/30 to-transparent rounded-full blur-3xl"></div>
-        
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="py-20 bg-emerald-900 relative overflow-hidden">
+        {/* Background gradients */}
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-500/20 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             className="space-y-6"
           >
-            <h1 className="text-5xl text-slate-900 brand-font tracking-tight">
-              Premium Products
+            <h1 className="text-5xl lg:text-6xl brand-font tracking-tight">
+              Premium <span className="text-amber-400 italic">Collection</span>
             </h1>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-              Discover our complete range of authentic frozen foods, 
-              crafted with care and bursting with traditional flavors.
+            <p className="text-xl text-emerald-100/80 max-w-2xl mx-auto leading-relaxed font-light">
+              Discover our complete range of authentic frozen foods, handcrafted with care and bursting with traditional flavors.
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Products Grid */}
-      <section className="py-16 bg-white">
+      <section className="py-16 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {products.map((product, index) => (
@@ -102,82 +101,77 @@ export function ProductsPage() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ 
-                  y: -8, 
+                transition={{ delay: index * 0.05 }}
+                whileHover={{
+                  y: -12,
                   scale: 1.02,
-                  rotateX: 5
                 }}
                 onHoverStart={() => setHoveredProduct(product.id)}
                 onHoverEnd={() => setHoveredProduct(null)}
-                className="group cursor-pointer"
+                className="group cursor-pointer relative z-10"
               >
                 <Link to={`/product/${product.id}`}>
-                  <div 
-                    className="bg-white rounded-xl overflow-hidden transition-all duration-300 border border-slate-100 hover:border-emerald-200"
+                  <div
+                    className="bg-white rounded-2xl overflow-hidden transition-all duration-500 border border-slate-100"
                     style={{
-                      boxShadow: hoveredProduct === product.id 
-                        ? "0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(6, 78, 59, 0.1)"
-                        : "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)"
+                      boxShadow: hoveredProduct === product.id
+                        ? "0 20px 40px -12px rgba(16, 185, 129, 0.2)"
+                        : "0 4px 6px -1px rgba(0, 0, 0, 0.05)"
                     }}
                   >
                     {/* Product Image */}
-                    <div className="relative overflow-hidden bg-slate-50">
+                    <div className="relative overflow-hidden bg-slate-100 aspect-[4/3]">
                       <ResponsiveImage
                         src={product.image}
                         alt={product.name}
-                        className="w-full h-48 group-hover:scale-110 transition-transform duration-500"
+                        className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out"
                         aspectRatio="4/3"
-                        objectFit="cover"
                       />
-                      
+
+                      {/* Gradient Overlay */}
+                      <div className={`absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent transition-opacity duration-300 ${hoveredProduct === product.id ? 'opacity-100' : 'opacity-0'}`}></div>
+
                       {/* Add to Cart Button - appears on hover */}
                       <motion.button
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ 
+                        initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                        animate={{
                           opacity: hoveredProduct === product.id ? 1 : 0,
-                          scale: hoveredProduct === product.id ? 1 : 0.8
+                          scale: hoveredProduct === product.id ? 1 : 0.8,
+                          y: hoveredProduct === product.id ? 0 : 10
                         }}
                         onClick={(e) => handleAddToCart(product, e)}
-                        className="absolute top-4 right-4 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-300 flex items-center justify-center text-emerald-700"
+                        className="absolute bottom-4 right-4 w-12 h-12 bg-white rounded-full shadow-lg hover:bg-emerald-50 transition-colors flex items-center justify-center text-emerald-700 z-20"
                       >
-                        <Plus className="w-5 h-5" />
+                        <Plus className="w-6 h-6" />
                       </motion.button>
                     </div>
 
                     {/* Product Info */}
-                    <div className="p-6 space-y-4">
+                    <div className="p-6 space-y-3 relative">
                       {/* Rating */}
                       <div className="flex items-center space-x-1">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="w-4 h-4 text-amber-400 fill-current" />
-                        ))}
+                        <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+                        <span className="text-xs text-slate-400 font-medium">4.8 (120+)</span>
                       </div>
-                      
+
                       {/* Product Name */}
-                      <h3 className="text-lg text-slate-900 group-hover:text-emerald-800 transition-colors font-medium">
+                      <h3 className="text-lg text-slate-900 group-hover:text-emerald-800 transition-colors font-bold leading-tight">
                         {product.name}
                       </h3>
-                      
+
                       {/* Description */}
-                      <p className="text-sm text-slate-600 leading-relaxed line-clamp-2">
+                      <p className="text-sm text-slate-500 leading-relaxed line-clamp-2 h-10">
                         {product.description}
                       </p>
-                      
-                      {/* Price and Action */}
-                      <div className="flex items-center justify-between pt-2">
-                        <span className="text-2xl text-slate-900 font-medium brand-font">
+
+                      <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                        <span className="text-xl font-bold text-emerald-700">
                           Rs.{product.price}
                         </span>
-                        
-                        <motion.button
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          onClick={(e) => handleAddToCart(product, e)}
-                          className="p-2 bg-emerald-800 text-white rounded-lg hover:bg-emerald-900 transition-colors shadow-sm hover:shadow-md"
-                        >
-                          <ShoppingCart className="w-4 h-4" />
-                        </motion.button>
+
+                        <span className="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full group-hover:bg-emerald-100 transition-colors">
+                          Premium
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -189,32 +183,33 @@ export function ProductsPage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 bg-gradient-to-br from-slate-50 to-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
+      <section className="py-24 bg-white relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="space-y-4"
           >
-            <h2 className="text-3xl text-slate-900 brand-font">
+            <h2 className="text-4xl text-slate-900 brand-font">
               Need Help Choosing?
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               Our team is here to help you find the perfect products for your taste and occasion.
             </p>
           </motion.div>
-          
-          <Link to="/contact">  
+
+          <Link to="/contact">
             <motion.button
-              whileHover={{ 
-                scale: 1.02,
-                boxShadow: "0 20px 40px -12px rgba(6, 78, 59, 0.25)"
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 20px 40px -12px rgba(16, 185, 129, 0.3)"
               }}
-              whileTap={{ scale: 0.98 }}
-              className="px-8 py-4 bg-emerald-800 text-white rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl font-medium"
+              whileTap={{ scale: 0.95 }}
+              className="px-10 py-5 bg-gradient-to-r from-emerald-800 to-emerald-700 text-white rounded-full transition-all duration-300 shadow-lg font-bold flex items-center gap-2 mx-auto"
             >
-              Get in Touch
+              Get in Touch <ArrowRight className="w-5 h-5" />
             </motion.button>
           </Link>
         </div>
