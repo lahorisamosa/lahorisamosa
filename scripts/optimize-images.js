@@ -10,10 +10,14 @@ const directories = [
 async function optimize() {
     for (const dir of directories) {
         const fullDir = path.join(__dirname, '..', dir);
-        if (!fs.existsSync(fullDir)) continue;
+        if (!fs.existsSync(fullDir)) {
+            console.log(`Directory not found: ${fullDir}`);
+            continue;
+        }
 
         const files = fs.readdirSync(fullDir);
         for (const file of files) {
+            // Only process original images
             if (file.match(/\.(png|jpg|jpeg)$/i)) {
                 const inputPath = path.join(fullDir, file);
                 const fileName = path.parse(file).name;
@@ -23,17 +27,13 @@ async function optimize() {
 
                 try {
                     await sharp(inputPath)
-                        .webp({ quality: 80 })
+                        .webp({ quality: 75, lossless: false, effort: 6 })
                         .toFile(outputPath);
 
                     const statsOld = fs.statSync(inputPath);
                     const statsNew = fs.statSync(outputPath);
 
-                    console.log(`✅ ${file}: ${(statsOld.size / 1024).toFixed(1)}KB -> ${(statsNew.size / 1024).toFixed(1)}KB`);
-
-                    // After conversion, we should update the code to use .webp
-                    // and eventually delete the old ones or just keep them as fallbacks.
-                    // For now, let's just convert.
+                    console.log(`✅ ${file} SUCCESS: ${(statsOld.size / 1024).toFixed(1)}KB -> ${(statsNew.size / 1024).toFixed(1)}KB`);
                 } catch (err) {
                     console.error(`❌ Failed to optimize ${file}:`, err);
                 }

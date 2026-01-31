@@ -14,49 +14,49 @@ export function ProductsPage() {
       id: '1',
       name: 'Pizza Samosa (12p)',
       price: 650,
-      image: '/images/products/pizza.jpg',
+      image: '/images/products/pizza.webp',
       description: 'Delicious pizza-flavored samosas with melted cheese and savory toppings.'
     },
     {
       id: '2',
       name: 'Bar.B.Q Samosa (12p)',
       price: 600,
-      image: '/images/products/bbq.jpg',
+      image: '/images/products/bbq.webp',
       description: 'Smoky barbecue flavored samosas with tender meat and aromatic spices.'
     },
     {
       id: '3',
       name: 'Malai Boti Samosa (12p)',
       price: 480,
-      image: '/images/products/boti.jpg',
+      image: '/images/products/boti.webp',
       description: 'Creamy malai boti samosas with rich, flavorful filling.'
     },
     {
       id: '4',
       name: 'Macaroni Samosa (12p)',
       price: 350,
-      image: '/images/products/mac.png',
+      image: '/images/products/mac.webp',
       description: 'Unique macaroni-filled samosas with cheesy goodness.'
     },
     {
       id: '5',
       name: 'Potato Samosa (12p)',
       price: 300,
-      image: '/images/products/potato.jpg',
+      image: '/images/products/potato.webp',
       description: 'Classic potato samosas with perfectly spiced filling.'
     },
     {
       id: '6',
       name: 'Chicken Qeema Samosa',
       price: 450,
-      image: '/images/products/chickenqeema.jpeg',
+      image: '/images/products/chickenqeema.webp',
       description: 'Tender chicken qeema samosas with authentic Pakistani flavors.'
     },
     {
       id: '7',
       name: 'Chicken Vegetable Roll',
       price: 560,
-      image: '/images/products/vegchicroll.jpg',
+      image: '/images/products/vegchicroll.webp',
       description: 'Chicken and vegetable rolls perfect for any occasion.'
     }
   ];

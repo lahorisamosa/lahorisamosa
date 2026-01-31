@@ -16,49 +16,49 @@ export function ProductDetailPage() {
       id: '1',
       name: 'Pizza Samosa (12p)',
       price: 650,
-      image: '/images/products/pizza.jpg',
+      image: '/images/products/pizza.webp',
       description: 'Delicious pizza-flavored samosas with melted cheese and savory toppings. Made with premium ingredients and traditional recipes, each bite delivers the perfect combination of crispy exterior and cheesy, flavorful filling that will transport you to pizza heaven.'
     },
     {
       id: '2',
       name: 'Bar.B.Q Samosa (12p)',
       price: 600,
-      image: '/images/products/bbq.jpg',
+      image: '/images/products/bbq.webp',
       description: 'Smoky barbecue flavored samosas with tender meat and aromatic spices. These samosas are carefully crafted with authentic BBQ flavors, offering a unique twist on the traditional samosa that will satisfy your cravings for smoky, grilled goodness.'
     },
     {
       id: '3',
       name: 'Malai Boti Samosa (12p)',
       price: 480,
-      image: '/images/products/boti.jpg',
+      image: '/images/products/boti.webp',
       description: 'Creamy malai boti samosas with rich, flavorful filling. Made with tender boti pieces in a creamy malai sauce, these samosas offer a luxurious taste experience that combines the best of traditional Pakistani cuisine with modern convenience.'
     },
     {
       id: '4',
       name: 'Macaroni Samosa (12p)',
       price: 350,
-      image: '/images/products/mac.png',
+      image: '/images/products/mac.webp',
       description: 'Unique macaroni-filled samosas with cheesy goodness. This innovative creation combines the comfort of macaroni and cheese with the crispy texture of samosas, creating a delightful fusion that appeals to both kids and adults.'
     },
     {
       id: '5',
       name: 'Potato Samosa (12p)',
       price: 300,
-      image: '/images/products/potato.jpg',
+      image: '/images/products/potato.webp',
       description: 'Classic potato samosas with perfectly spiced filling. Made with fresh potatoes and aromatic spices, these traditional samosas are a timeless favorite that never goes out of style. Perfect for any occasion.'
     },
     {
       id: '6',
       name: 'Chicken Qeema Samosa',
       price: 450,
-      image: '/images/products/chickenqeema.jpeg',
+      image: '/images/products/chickenqeema.webp',
       description: 'Tender chicken qeema samosas with authentic Pakistani flavors. Made with finely minced chicken and traditional spices, these samosas offer a rich and satisfying taste that represents the true essence of Pakistani cuisine.'
     },
     {
       id: '7',
       name: 'Chicken Vegetable Roll',
       price: 560,
-      image: '/images/products/vegchicroll.jpg',
+      image: '/images/products/vegchicroll.webp',
       description: 'Chicken and vegetable rolls perfect for any occasion. These rolls combine tender chicken with fresh vegetables, wrapped in a crispy pastry shell. Ideal for parties, gatherings, or as a delicious snack any time of the day.'
     }
   ];

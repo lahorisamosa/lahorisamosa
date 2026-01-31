@@ -20,8 +20,8 @@ export function HomePage() {
 
 
 
-  const heroImage = "/images/hero/heroimage.jpg";
-  const samosaImage = "/images/products/chickenqeema.jpeg";
+  const heroImage = "/images/hero/heroimage.webp";
+  const samosaImage = "/images/products/chickenqeema.webp";
 
   const features = [
     {
