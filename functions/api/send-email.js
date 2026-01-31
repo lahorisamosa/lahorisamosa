@@ -11,9 +11,10 @@ export async function onRequestPost({ request, env }) {
         const BREVO_SENDER_NAME = env.BREVO_SENDER_NAME || 'Lahori Samosa';
 
         if (!BREVO_API_KEY || !BREVO_SENDER_EMAIL) {
+            const keys = Object.keys(env);
             return new Response(JSON.stringify({
                 success: false,
-                error: 'Missing Brevo configuration in Cloudflare environment variables'
+                error: `Missing Brevo configuration. Keys seen in Cloudflare: [${keys.join(', ')}]`
             }), {
                 status: 500,
                 headers: { 'Content-Type': 'application/json' }
