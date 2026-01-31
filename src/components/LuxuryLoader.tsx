@@ -1,4 +1,3 @@
-```
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -85,7 +84,7 @@ export function LuxuryLoader({ onComplete }: { onComplete: () => void }) {
                         {/* Shimmering Liquid Gold Bar */}
                         <motion.div
                             className="h-full bg-gradient-to-r from-amber-600 via-amber-400 to-amber-200 relative shadow-[0_0_15px_rgba(251,191,36,0.3)]"
-                            style={{ width: `${ progress }% ` }}
+                            style={{ width: `${progress}%` }}
                             initial={{ width: "0%" }}
                         />
                         {/* Glossy Overlay */}
@@ -104,7 +103,7 @@ export function LuxuryLoader({ onComplete }: { onComplete: () => void }) {
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
-                                className="text-amber-500/50 text-[10px] uppercase tracking-[0.2em] font-medium"
+                                className="text-amber-400 text-[12px] uppercase tracking-[0.2em] font-medium drop-shadow-md"
                             >
                                 {LOADING_PHASES[phaseIndex]}
                             </motion.span>
@@ -117,17 +116,6 @@ export function LuxuryLoader({ onComplete }: { onComplete: () => void }) {
             </div>
 
             {/* Aesthetic Est. Tag */}
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 2, duration: 2 }}
-                className="absolute bottom-16 flex flex-col items-center gap-4"
-            >
-                <div className="w-px h-12 bg-gradient-to-b from-amber-600/30 to-transparent"></div>
-                <span className="text-amber-900/40 text-[9px] uppercase tracking-[0.5em] font-light">
-                    Crafting Artistry Since 1996
-                </span>
-            </motion.div>
         </div>
     );
 }

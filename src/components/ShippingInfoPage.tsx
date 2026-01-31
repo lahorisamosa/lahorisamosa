@@ -63,44 +63,44 @@ export function ShippingInfoPage() {
   ];
 
   return (
-    <div className="pt-16 bg-white overflow-hidden">
-      {/* Hero Section */}
-      <section className="py-24 bg-gradient-to-br from-slate-50 to-gray-50 relative">
-        {/* Background decoration */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-amber-100/30 to-transparent rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-slate-100/30 to-transparent rounded-full blur-3xl"></div>
+    <div className="pt-16 bg-slate-50 dark:bg-slate-950 min-h-screen transition-colors duration-500">
+      {/* Page Header - Matches ProductsPage.tsx */}
+      <section className="py-20 bg-slate-900 relative overflow-hidden">
+        {/* Background gradients */}
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center space-y-6"
+            className="space-y-6"
           >
             <Link
               to="/"
-              className="inline-flex items-center text-amber-700 hover:text-amber-800 transition-colors mb-4"
+              className="inline-flex items-center text-amber-400 hover:text-amber-300 transition-colors mb-4"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Home
             </Link>
 
-            <h1 className="text-5xl lg:text-6xl text-slate-900 brand-font tracking-tight">
-              Shipping & <span className="text-amber-800 italic">Delivery</span>
+            <h1 className="text-5xl lg:text-6xl brand-font tracking-tight">
+              Shipping & <span className="text-amber-400 italic">Delivery</span>
             </h1>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-              At Lahori Samosa, we make sure your frozen samosas reach you safely and in perfect condition. Please read our delivery guidelines below.
+            <p className="text-xl text-slate-100/80 max-w-2xl mx-auto leading-relaxed font-light">
+              At Lahori Samosa, we make sure your frozen samosas reach you safely.
             </p>
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-slate-400">
               Last updated: {new Date().toLocaleDateString()}
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Shipping Policy Content */}
-      <section className="py-16 bg-white">
+      {/* Shipping Info Content */}
+      <section className="py-16 relative">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="space-y-12">
+          <div className="space-y-8">
             {sections.map((section, index) => (
               <motion.div
                 key={section.title}
@@ -108,19 +108,20 @@ export function ShippingInfoPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-slate-50 rounded-2xl p-8 border border-slate-100"
+                // Card styling matching Product Grid items
+                className="bg-white dark:bg-slate-900 rounded-2xl p-8 border border-slate-100 dark:border-slate-800 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_-12px_rgba(245,158,11,0.1)] transition-all duration-500"
               >
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <section.icon className="w-6 h-6 text-amber-700" />
+                <div className="flex items-start space-x-6">
+                  <div className="w-12 h-12 bg-amber-50 dark:bg-slate-800 rounded-xl flex items-center justify-center flex-shrink-0 border border-amber-100 dark:border-slate-700">
+                    <section.icon className="w-6 h-6 text-amber-600 dark:text-amber-500" />
                   </div>
-                  <div className="space-y-4">
-                    <h2 className="text-2xl text-slate-900 font-semibold">
+                  <div className="space-y-4 flex-1">
+                    <h2 className="text-2xl text-slate-900 dark:text-white font-bold">
                       {section.title}
                     </h2>
                     <div className="space-y-3">
                       {section.content.map((item, itemIndex) => (
-                        <p key={itemIndex} className="text-slate-600 leading-relaxed">
+                        <p key={itemIndex} className="text-slate-600 dark:text-slate-300 leading-relaxed">
                           {item}
                         </p>
                       ))}
@@ -134,18 +135,18 @@ export function ShippingInfoPage() {
       </section>
 
       {/* Contact Section */}
-      <section className="py-16 bg-gradient-to-br from-slate-800 to-slate-900">
+      <section className="py-16 bg-white dark:bg-slate-900 transition-colors duration-500 border-t border-slate-100 dark:border-slate-800">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center text-white"
+            className="text-center"
           >
-            <h2 className="text-3xl font-semibold mb-6 brand-font">
+            <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6 brand-font">
               Delivery Questions?
             </h2>
-            <p className="text-slate-100 mb-8 text-lg">
+            <p className="text-slate-600 dark:text-slate-300 mb-8 text-lg">
               For any delivery-related queries, please contact us:
             </p>
 
@@ -154,20 +155,20 @@ export function ShippingInfoPage() {
                 href="mailto:samosastash@gmail.com"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center justify-center space-x-3 bg-white/10 rounded-lg px-6 py-4 hover:bg-white/20 transition-all duration-300 backdrop-blur-sm border border-white/20 w-full"
+                className="flex items-center justify-center space-x-3 bg-slate-100 dark:bg-slate-800 rounded-lg px-6 py-4 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-300"
               >
-                <Mail className="w-5 h-5 flex-shrink-0" />
-                <span className="text-sm md:text-base text-center">samosastash@gmail.com</span>
+                <Mail className="w-5 h-5 text-amber-600 dark:text-amber-500" />
+                <span className="text-slate-900 dark:text-white">samosastash@gmail.com</span>
               </motion.a>
 
               <motion.a
                 href="tel:+923244060113"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center justify-center space-x-3 bg-white/10 rounded-lg px-6 py-4 hover:bg-white/20 transition-all duration-300 backdrop-blur-sm border border-white/20 w-full"
+                className="flex items-center justify-center space-x-3 bg-slate-100 dark:bg-slate-800 rounded-lg px-6 py-4 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-300"
               >
-                <Phone className="w-5 h-5 flex-shrink-0" />
-                <span className="text-sm md:text-base text-center">+92 324 4060113</span>
+                <Phone className="w-5 h-5 text-amber-600 dark:text-amber-500" />
+                <span className="text-slate-900 dark:text-white">+92 324 4060113</span>
               </motion.a>
             </div>
           </motion.div>

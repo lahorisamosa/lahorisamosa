@@ -38,7 +38,7 @@ export function Header() {
           x: "-50%",
           opacity: 1,
           width: isScrolled ? 'auto' : '100%',
-          top: isScrolled ? '1.5rem' : '0',
+          top: isScrolled ? '1rem' : '0', // Slightly reduced top offset
           borderRadius: isScrolled ? '50px' : '0',
           backdropFilter: isScrolled ? 'blur(12px)' : 'blur(0px)',
         }}
@@ -47,19 +47,19 @@ export function Header() {
           ease: [0.16, 1, 0.3, 1], // out-expo
         }}
         className={`fixed left-1/2 z-50 ${isScrolled
-          ? 'glass-panel shadow-lg min-w-[320px]'
+          ? 'glass-panel shadow-lg min-w-[280px] sm:min-w-[320px]' // Smaller min-width for mobile
           : 'bg-transparent border-none'
           }`}
       >
-        <div className={`mx-auto px-6 sm:px-8 ${isScrolled ? 'py-3' : 'py-6'}`}>
-          <div className="flex items-center justify-between gap-8">
+        <div className={`mx-auto px-4 sm:px-8 ${isScrolled ? 'py-2 sm:py-3' : 'py-3 sm:py-6'}`}>
+          <div className="flex items-center justify-between gap-4 sm:gap-8">
             {/* Logo */}
             <Link to="/" className="flex items-center group">
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 className="relative"
               >
-                <span className={`text-2xl brand-font tracking-tight font-bold transition-colors duration-300 ${isScrolled || location.pathname !== '/'
+                <span className={`text-lg sm:text-2xl brand-font tracking-tight font-bold transition-colors duration-300 ${isScrolled || location.pathname !== '/'
                   ? 'text-slate-900 dark:text-white'
                   : 'text-white'
                   }`}>
@@ -95,8 +95,8 @@ export function Header() {
 
 
             {/* Right Side Actions */}
-            <div className="flex items-center space-x-4">
-              <div className="hidden sm:block">
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              <div className="block">
                 <ThemeToggle />
               </div>
 
@@ -124,7 +124,7 @@ export function Header() {
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  className={`relative p-2 rounded-full transition-colors ${isScrolled || location.pathname !== '/'
+                  className={`relative p-1.5 sm:p-2 rounded-full transition-colors ${isScrolled || location.pathname !== '/'
                     ? 'text-slate-600 hover:text-amber-600 bg-slate-50/50 dark:text-slate-100 dark:hover:text-amber-400 dark:bg-white/5'
                     : 'text-white hover:text-amber-400 bg-white/10 backdrop-blur-sm'
                     }`}
@@ -134,7 +134,7 @@ export function Header() {
                     <motion.span
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      className="absolute -top-1 -right-1 bg-amber-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold shadow-sm"
+                      className="absolute -top-1 -right-1 bg-amber-500 text-white text-xs rounded-full w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center font-bold shadow-sm"
                     >
                       {cartItemCount}
                     </motion.span>
@@ -145,7 +145,7 @@ export function Header() {
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className={`md:hidden p-2 rounded-full transition-colors ${isScrolled
+                className={`md:hidden p-1.5 sm:p-2 rounded-full transition-colors ${isScrolled
                   ? 'text-slate-600 hover:text-amber-600 bg-slate-50/50 dark:text-white dark:bg-white/10'
                   : 'text-white hover:text-amber-400 bg-white/10 backdrop-blur-sm'
                   }`}

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { MapPin, Phone, Mail, MessageCircle, Send, Clock, CheckCircle } from 'lucide-react';
-import { EmailConfig, EMAIL_API_URL } from '../utils/emailConfig';
+import { EMAIL_API_URL } from '../utils/emailConfig';
 
 export function ContactPage() {
   const [formData, setFormData] = useState({
@@ -26,25 +26,29 @@ export function ContactPage() {
     setIsSubmitting(true);
 
     try {
-      // Send contact form email using business EmailJS account
+
+      // Send contact form email using Brevo
       const response = await fetch(EMAIL_API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          service_id: EmailConfig.business.serviceId,
-          template_id: EmailConfig.business.templates.businessOrder,
-          user_id: EmailConfig.business.userId,
-          template_params: {
-            // Using order template fields for contact form
-            order_id: `CONTACT-${Date.now().toString(36).toUpperCase()}`,
-            customer_name: formData.name,
-            customer_phone: formData.phone || 'Not provided',
-            customer_address: `Subject: ${formData.subject}\nEmail: ${formData.email}`,
-            order_items: formData.message,
-            total_amount: 'Contact Form Submission'
-          }
+          to: import.meta.env.VITE_BUSINESS_EMAIL || "samosastash@gmail.com",
+          subject: `New Contact Message: ${formData.subject}`,
+          htmlContent: `
+            <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+              <h2 style="color: #d97706;">New Contact Form Submission</h2>
+              <p><strong>Name:</strong> ${formData.name}</p>
+              <p><strong>Email:</strong> ${formData.email}</p>
+              <p><strong>Phone:</strong> ${formData.phone || 'Not provided'}</p>
+              <p><strong>Subject:</strong> ${formData.subject}</p>
+              <div style="background: #f9f9f9; padding: 15px; border-left: 4px solid #d97706; margin-top: 20px;">
+                <p style="margin: 0;"><strong>Message:</strong></p>
+                <p style="margin-top: 10px; white-space: pre-wrap;">${formData.message}</p>
+              </div>
+            </div>
+          `
         })
       });
 
@@ -194,10 +198,9 @@ export function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl p-8 border border-slate-100 dark:border-slate-800"
+              className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl p-6 sm:p-8 border border-slate-100 dark:border-slate-800"
             >
               <h2 className="text-2xl text-slate-900 dark:text-white mb-6 flex items-center brand-font">
                 <Send className="w-6 h-6 mr-3 text-slate-700" />

@@ -1,17 +1,13 @@
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Leaf, Clock, Award, ArrowRight, Star, CheckCircle, XCircle, Loader2 } from 'lucide-react';
+import { Leaf, Clock, Award, ArrowRight, Star, CheckCircle } from 'lucide-react';
 import { ResponsiveImage } from './ResponsiveImage';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 export function HomePage() {
-  const [searchParams] = useSearchParams();
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // States for payment confirmation (added to fix build)
-  const [isLoading, setIsLoading] = useState(false);
-  const [paymentStatus, setPaymentStatus] = useState<{ isSuccess: boolean, message: string, orderId?: string } | null>(null);
 
   // Force rebuild test
   useEffect(() => {
@@ -21,6 +17,7 @@ export function HomePage() {
 
 
   const heroImage = "/images/hero/heroimage.webp";
+  const mobileHeroImage = "/images/hero/hero-mobile.webp";
   const samosaImage = "/images/products/chickenqeema.webp";
 
   const features = [
@@ -41,138 +38,109 @@ export function HomePage() {
     }
   ];
 
-  // Show payment confirmation if payment parameter is present
-  if (searchParams.get('payment') === 'confirmation') {
-    return (
-      <div className="pt-20 min-h-screen bg-slate-50 flex items-center justify-center">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="glass-card rounded-2xl p-8 max-w-md w-full text-center border border-slate-200 shadow-xl"
-        >
-          <div className="mb-6 flex justify-center">
-            {isLoading ? (
-              <Loader2 className="w-20 h-20 text-amber-600 animate-spin" />
-            ) : paymentStatus?.isSuccess ? (
-              <CheckCircle className="w-20 h-20 text-amber-600" />
-            ) : (
-              <XCircle className="w-20 h-20 text-red-500" />
-            )}
-          </div>
-
-          <h1 className="text-3xl font-bold text-slate-900 mb-3 brand-font">
-            {isLoading ? 'Processing Payment...' : paymentStatus?.isSuccess ? 'Payment Successful!' : 'Payment Failed'}
-          </h1>
-
-          <p className="text-slate-600 mb-6">
-            {isLoading ? 'Please wait while we verify your payment...' : paymentStatus?.message}
-          </p>
-
-          {paymentStatus?.orderId && (
-            <div className="bg-amber-50 rounded-lg p-3 mb-6 border border-amber-100">
-              <p className="text-amber-800 text-sm font-medium">Order Reference</p>
-              <p className="font-mono text-lg font-bold text-slate-900">{paymentStatus.orderId}</p>
-            </div>
-          )}
-
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => window.location.href = '/'}
-            className="w-full px-6 py-3 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-colors shadow-lg font-medium"
-          >
-            Continue Shopping
-          </motion.button>
-        </motion.div>
-      </div>
-    );
-  }
 
   return (
     <div className="bg-white overflow-hidden" ref={containerRef}>
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      {/* Hero Section */}
+      {/* Hero Section */}
+      <section className="relative w-full aspect-[9/16] md:aspect-auto md:min-h-screen flex items-center justify-center overflow-hidden">
         {/* Static Background Image */}
         <div className="absolute inset-0 z-0">
-          <ResponsiveImage
-            src={heroImage}
-            alt="Hero Background"
-            className="w-full h-full"
-            objectFit="cover"
-            priority={true}
-          />
-          {/* Dark Overlay for Readability - Lightened */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-slate-950/70 mix-blend-multiply"></div>
-          <div className="absolute inset-0 bg-black/10"></div>
+          {/* Desktop Image (Landscape) */}
+          <div className="hidden md:block w-full h-full">
+            <ResponsiveImage
+              src={heroImage}
+              alt="Hero Background Desktop"
+              className="w-full h-full object-center"
+              objectFit="cover"
+              priority={true}
+            />
+          </div>
+
+          {/* Mobile Image (Portrait) */}
+          <div className="block md:hidden w-full h-full">
+            <ResponsiveImage
+              src={mobileHeroImage}
+              alt="Hero Background Mobile"
+              className="w-full h-full object-center"
+              objectFit="cover"
+              priority={true}
+            />
+          </div>
+
+          {/* Lightened Overlay for maximum image visibility */}
+          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 opacity-60"></div>
         </div>
 
         {/* Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-52">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 flex flex-col justify-center h-full pt-16 sm:pt-0 pb-8 sm:pb-0">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="space-y-8 max-w-4xl mx-auto"
+            className="space-y-3 sm:space-y-8 max-w-4xl w-full text-left sm:text-center mx-auto"
           >
-            <motion.div className="space-y-4">
+            <motion.div className="space-y-2 sm:space-y-4">
               <motion.span
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="inline-block px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-slate-100 text-sm font-medium backdrop-blur-sm"
+                className="inline-block px-3 py-1 rounded-full bg-white/10 border border-white/20 text-slate-100 text-[10px] sm:text-sm font-medium backdrop-blur-md"
               >
                 Since 2024 • Taste of Lahore
               </motion.span>
-              <h1 className="text-6xl sm:text-7xl lg:text-9xl text-white brand-font tracking-tight leading-none drop-shadow-2xl">
+              <h1 className="text-4xl sm:text-7xl lg:text-9xl text-white brand-font tracking-tight leading-none drop-shadow-2xl">
                 Lahori
-                <span className="text-amber-400 italic block mt-2">Samosa</span>
+                <span className="text-amber-400 italic block mt-0 sm:mt-2">Samosa</span>
               </h1>
             </motion.div>
 
-            <p className="text-xl sm:text-2xl text-white/90 max-w-2xl mx-auto leading-relaxed font-light drop-shadow-lg">
+            <p className="text-base sm:text-2xl text-white/90 max-w-xl sm:mx-auto leading-relaxed font-light drop-shadow-lg pr-4 sm:pr-0">
               Authentic Pakistani cuisine, expertly crafted and perfectly preserved.
               Experience the royal flavors of tradition.
             </p>
 
             <motion.div
-              className="flex flex-col sm:flex-row gap-6 justify-center pt-8"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-6 pt-3 sm:pt-8 w-full max-w-md sm:max-w-none sm:justify-center"
             >
-              <Link to="/products">
+              <Link to="/products" className="w-auto inline-block">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-full sm:w-auto px-10 py-5 bg-amber-500 text-slate-950 rounded-full text-lg font-bold transition-all duration-300 shadow-[0_0_20px_rgba(245,158,11,0.4)] hover:shadow-[0_0_40px_rgba(245,158,11,0.6)] flex items-center justify-center gap-2"
+                  className="w-auto min-w-[140px] px-6 py-3 bg-amber-500 text-slate-950 rounded-full text-sm font-bold transition-all duration-300 shadow-[0_0_20px_rgba(245,158,11,0.4)] hover:shadow-[0_0_40px_rgba(245,158,11,0.6)] flex items-center justify-center gap-2"
                 >
-                  Explore Menu <ArrowRight className="w-5 h-5" />
+                  Explore <ArrowRight className="w-4 h-4 ml-1" />
                 </motion.button>
               </Link>
 
-              <Link to="/contact">
+              <Link to="/contact" className="w-auto inline-block">
                 <motion.button
                   whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.2)" }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-full sm:w-auto px-10 py-5 border border-white/40 text-white rounded-full text-lg hover:border-white transition-all duration-300 backdrop-blur-sm"
+                  className="w-auto min-w-[140px] px-6 py-3 border border-white/40 text-white rounded-full text-sm hover:border-white transition-all duration-300 backdrop-blur-sm"
                 >
                   Contact Us
                 </motion.button>
               </Link>
             </motion.div>
 
-            {/* Stats */}
-            <div className="flex gap-12 justify-center pt-12 border-t border-white/10 mt-12 max-w-lg mx-auto">
-              <div className="text-center">
-                <div className="text-3xl text-amber-400 brand-font font-bold">7+</div>
-                <div className="text-xs text-white/70 uppercase tracking-widest mt-1">Premium Items</div>
+            {/* Stats - Left aligned on mobile, center on desktop */}
+            <div className="flex gap-6 sm:gap-12 pt-4 sm:pt-12 border-t border-white/10 mt-4 sm:mt-12 w-full max-w-md sm:max-w-lg sm:mx-auto sm:justify-center">
+              <div className="text-left sm:text-center">
+                <div className="text-xl sm:text-3xl text-amber-400 brand-font font-bold">7+</div>
+                <div className="text-[10px] sm:text-xs text-white/70 uppercase tracking-widest mt-1">Items</div>
               </div>
               <div className="w-px bg-white/10"></div>
-              <div className="text-center">
-                <div className="text-3xl text-amber-400 brand-font font-bold">100%</div>
-                <div className="text-xs text-white/70 uppercase tracking-widest mt-1">Halal Certified</div>
+              <div className="text-left sm:text-center">
+                <div className="text-xl sm:text-3xl text-amber-400 brand-font font-bold">100%</div>
+                <div className="text-[10px] sm:text-xs text-white/70 uppercase tracking-widest mt-1">Halal</div>
               </div>
               <div className="w-px bg-white/10"></div>
-              <div className="text-center">
-                <div className="text-3xl text-amber-400 brand-font font-bold">4.9</div>
-                <div className="text-xs text-white/70 uppercase tracking-widest mt-1">Customer Rating</div>
+              <div className="text-left sm:text-center">
+                <div className="text-xl sm:text-3xl text-amber-400 brand-font font-bold">4.9</div>
+                <div className="text-[10px] sm:text-xs text-white/70 uppercase tracking-widest mt-1">Rating</div>
               </div>
             </div>
           </motion.div>
@@ -180,10 +148,10 @@ export function HomePage() {
 
         {/* Scroll Indicator */}
         <motion.div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50"
+          className="absolute bottom-3 sm:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50"
         >
-          <span className="text-xs uppercase tracking-widest">Scroll</span>
-          <div className="w-px h-12 bg-gradient-to-b from-white/50 to-transparent"></div>
+          <span className="text-[8px] sm:text-xs uppercase tracking-widest">Scroll</span>
+          <div className="w-px h-4 sm:h-12 bg-gradient-to-b from-white/50 to-transparent"></div>
         </motion.div>
       </section>
 

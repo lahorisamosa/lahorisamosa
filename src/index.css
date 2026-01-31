@@ -53,3 +53,14 @@
 .fade-in-up {
   animation: fadeInUp 0.6s ease-out forwards;
 }
+
+/* Chatbot Z-Index Override to prevent blocking mobile menu */
+#brevo-conversations-widget-wrapper {
+  z-index: 40 !important; /* Lower than Header's z-[10000] */
+}
+
+@media (max-width: 768px) {
+  #brevo-conversations-widget-wrapper {
+    bottom: 80px !important; /* Move up slightly to avoid footer conflict */
+  }
+}

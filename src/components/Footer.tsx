@@ -25,7 +25,7 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-slate-950 text-white relative overflow-hidden border-t border-slate-900">
+    <footer className="bg-slate-950 text-white pt-12 md:pt-20 pb-10 relative overflow-hidden font-sans border-t border-white/5">
       {/* Abstract Background Shapes */}
       <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-slate-900/20 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-amber-600/10 rounded-full blur-[100px] translate-x-1/2 translate-y-1/2 pointer-events-none"></div>

@@ -65,44 +65,44 @@ export function TermsOfServicePage() {
   ];
 
   return (
-    <div className="pt-16 bg-white dark:bg-slate-950 overflow-hidden transition-colors duration-500">
-      {/* Hero Section */}
-      <section className="py-24 bg-gradient-to-br from-slate-50 to-gray-50 dark:from-slate-900 dark:to-slate-800 relative transition-colors duration-500">
-        {/* Background decoration */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-amber-100/30 to-transparent rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-amber-100/30 to-transparent rounded-full blur-3xl"></div>
+    <div className="pt-16 bg-slate-50 dark:bg-slate-950 min-h-screen transition-colors duration-500">
+      {/* Page Header - Matches ProductsPage.tsx */}
+      <section className="py-20 bg-slate-900 relative overflow-hidden">
+        {/* Background gradients */}
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center space-y-6"
+            className="space-y-6"
           >
             <Link
               to="/"
-              className="inline-flex items-center text-amber-700 hover:text-amber-800 dark:text-amber-500 dark:hover:text-amber-400 transition-colors mb-4"
+              className="inline-flex items-center text-amber-400 hover:text-amber-300 transition-colors mb-4"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Home
             </Link>
 
-            <h1 className="text-5xl lg:text-6xl text-slate-900 brand-font tracking-tight">
-              Terms of <span className="text-slate-900 dark:text-white italic">Service</span>
+            <h1 className="text-5xl lg:text-6xl brand-font tracking-tight">
+              Terms of <span className="text-amber-400 italic">Service</span>
             </h1>
-            <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
-              Welcome to Lahori Samosa. By accessing or using our website, you agree to the following terms and conditions. Please read them carefully before placing an order or using our services.
+            <p className="text-xl text-slate-100/80 max-w-2xl mx-auto leading-relaxed font-light">
+              Welcome to Lahori Samosa. By accessing our services, you agree to these terms.
             </p>
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-slate-400">
               Last updated: {new Date().toLocaleDateString()}
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Terms of Service Content */}
-      <section className="py-16 bg-white">
+      {/* Terms Content */}
+      <section className="py-16 relative">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="space-y-12">
+          <div className="space-y-8">
             {sections.map((section, index) => (
               <motion.div
                 key={section.title}
@@ -110,19 +110,20 @@ export function TermsOfServicePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-slate-50 rounded-2xl p-8 border border-slate-100"
+                // Card styling matching Product Grid items
+                className="bg-white dark:bg-slate-900 rounded-2xl p-8 border border-slate-100 dark:border-slate-800 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_-12px_rgba(245,158,11,0.1)] transition-all duration-500"
               >
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <section.icon className="w-6 h-6 text-amber-700" />
+                <div className="flex items-start space-x-6">
+                  <div className="w-12 h-12 bg-amber-50 dark:bg-slate-800 rounded-xl flex items-center justify-center flex-shrink-0 border border-amber-100 dark:border-slate-700">
+                    <section.icon className="w-6 h-6 text-amber-600 dark:text-amber-500" />
                   </div>
-                  <div className="space-y-4">
-                    <h2 className="text-2xl text-slate-900 font-semibold">
+                  <div className="space-y-4 flex-1">
+                    <h2 className="text-2xl text-slate-900 dark:text-white font-bold">
                       {section.title}
                     </h2>
                     <div className="space-y-3">
                       {section.content.map((item, itemIndex) => (
-                        <p key={itemIndex} className="text-slate-600 leading-relaxed">
+                        <p key={itemIndex} className="text-slate-600 dark:text-slate-300 leading-relaxed">
                           {item}
                         </p>
                       ))}
@@ -134,21 +135,21 @@ export function TermsOfServicePage() {
 
             {/* Changes to Terms */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.8 }}
-              className="bg-gradient-to-br from-amber-50 to-amber-100 rounded-2xl p-8 border border-amber-100"
+              className="bg-white dark:bg-slate-900 rounded-2xl p-8 border border-slate-100 dark:border-slate-800 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05)] mt-12"
             >
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <Calendar className="w-6 h-6 text-amber-700" />
+              <div className="flex items-start space-x-6">
+                <div className="w-12 h-12 bg-amber-50 dark:bg-slate-800 rounded-xl flex items-center justify-center flex-shrink-0 border border-amber-100 dark:border-slate-700">
+                  <Calendar className="w-6 h-6 text-amber-600 dark:text-amber-500" />
                 </div>
-                <div className="space-y-4">
-                  <h2 className="text-2xl text-slate-900 font-semibold">
+                <div className="space-y-4 flex-1">
+                  <h2 className="text-2xl text-slate-900 dark:text-white font-bold">
                     Changes to Terms
                   </h2>
-                  <p className="text-slate-600 leading-relaxed">
+                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
                     We may update these Terms of Service at any time. Updates will be posted on this page with the new effective date.
                   </p>
                 </div>
@@ -159,19 +160,19 @@ export function TermsOfServicePage() {
       </section>
 
       {/* Contact Section */}
-      <section className="py-16 bg-gradient-to-br from-slate-800 to-slate-900">
+      <section className="py-16 bg-white dark:bg-slate-900 transition-colors duration-500 border-t border-slate-100 dark:border-slate-800">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center text-white"
+            className="text-center"
           >
-            <h2 className="text-3xl font-semibold mb-6 brand-font">
+            <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6 brand-font">
               Questions About These Terms?
             </h2>
-            <p className="text-slate-100 mb-8 text-lg">
-              If you have any questions about these Terms of Service, please reach us at:
+            <p className="text-slate-600 dark:text-slate-300 mb-8 text-lg">
+              If you have any questions, please reach us at:
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
@@ -179,20 +180,20 @@ export function TermsOfServicePage() {
                 href="mailto:samosastash@gmail.com"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center justify-center space-x-3 bg-white/10 rounded-lg px-6 py-4 hover:bg-white/20 transition-all duration-300 backdrop-blur-sm border border-white/20 w-full"
+                className="flex items-center justify-center space-x-3 bg-slate-100 dark:bg-slate-800 rounded-lg px-6 py-4 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-300"
               >
-                <Mail className="w-5 h-5 flex-shrink-0" />
-                <span className="text-sm md:text-base text-center">samosastash@gmail.com</span>
+                <Mail className="w-5 h-5 text-amber-600 dark:text-amber-500" />
+                <span className="text-slate-900 dark:text-white">samosastash@gmail.com</span>
               </motion.a>
 
               <motion.a
                 href="tel:+923244060113"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center justify-center space-x-3 bg-white/10 rounded-lg px-6 py-4 hover:bg-white/20 transition-all duration-300 backdrop-blur-sm border border-white/20 w-full"
+                className="flex items-center justify-center space-x-3 bg-slate-100 dark:bg-slate-800 rounded-lg px-6 py-4 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-300"
               >
-                <Phone className="w-5 h-5 flex-shrink-0" />
-                <span className="text-sm md:text-base text-center">+92 324 4060113</span>
+                <Phone className="w-5 h-5 text-amber-600 dark:text-amber-500" />
+                <span className="text-slate-900 dark:text-white">+92 324 4060113</span>
               </motion.a>
             </div>
           </motion.div>
