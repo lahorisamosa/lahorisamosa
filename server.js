@@ -1,6 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const axios = require('axios');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -14,81 +16,76 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'build')));
 }
 
-// Generate order ID (max 20 chars for JazzCash)
-function generateOrderId() {
-  const timestamp = Date.now().toString(36);
-  const random = Math.random().toString(36).substring(2, 7);
-  return `LAHORI${timestamp}${random}`.toUpperCase().substring(0, 20);
-}
+// Brevo API Configuration
+const BREVO_API_URL = 'https://api.brevo.com/v3/smtp/email';
+const BREVO_API_KEY = process.env.BREVO_API_KEY;
+const BREVO_SENDER_EMAIL = process.env.BREVO_SENDER_EMAIL;
+const BREVO_SENDER_NAME = process.env.BREVO_SENDER_NAME || 'Lahori Samosa';
 
-// Email sending is now handled by frontend using EmailJS
-
-// Submit order endpoint
-app.post('/make-server-88c4ddbd/orders', async (req, res) => {
+// Send Email Endpoint
+app.post('/api/send-email', async (req, res) => {
+  console.log('Received email request');
   try {
-    const orderData = req.body;
-    const orderId = generateOrderId();
-    
-    // Create order object
-    const order = {
-      id: orderId,
-      ...orderData,
-      status: 'pending',
-      createdAt: new Date().toISOString()
-    };
-    
-    console.log('Processing order:', orderId);
-    
-    // Email will be sent from frontend using EmailJS
-    console.log('Order processed successfully - email will be sent from frontend');
-    
-    res.json({ 
-      success: true, 
-      orderId,
-      message: 'Order placed successfully! Email confirmation will be sent shortly.'
-    });
-    
-  } catch (error) {
-    console.log('Error placing order:', error);
-    res.status(500).json({ 
-      success: false, 
-      error: 'Failed to place order' 
-    });
-  }
-});
+    const { to, subject, htmlContent, textContent } = req.body;
 
-// Get order endpoint
-app.get('/make-server-88c4ddbd/orders/:orderId', async (req, res) => {
-  try {
-    const orderId = req.params.orderId;
-    
-    // For demo purposes, return a mock order
-    const order = {
-      id: orderId,
-      items: [{ name: 'Pizza Samosa (12p)', quantity: 1, price: 650 }],
-      total: 750,
-      customerInfo: {
-        name: 'Sample Customer',
-        phone: '+923244060113',
-        address: 'Sample Address'
+    if (!BREVO_API_KEY || !BREVO_SENDER_EMAIL) {
+      console.error('Brevo configuration missing');
+      return res.status(500).json({ success: false, error: 'Server misconfiguration: Missing Brevo keys' });
+    }
+
+    if (!to || !subject || (!htmlContent && !textContent)) {
+      console.warn('Missing required fields in request:', req.body);
+      return res.status(400).json({ success: false, error: 'Missing required fields' });
+    }
+
+    const emailData = {
+      sender: {
+        name: BREVO_SENDER_NAME,
+        email: BREVO_SENDER_EMAIL
       },
-      status: 'confirmed',
-      createdAt: new Date().toISOString()
+      to: Array.isArray(to) ? to : [{ email: to }],
+      subject: subject,
+      htmlContent: htmlContent || textContent
     };
-    
-    res.json({ success: true, order });
-    
-  } catch (error) {
-    console.log('Error fetching order:', error);
-    res.status(500).json({ 
-      success: false, 
-      error: 'Failed to fetch order' 
+
+    console.log('Sending email via Brevo to:', emailData.to);
+
+    const response = await axios.post(BREVO_API_URL, emailData, {
+      headers: {
+        'accept': 'application/json',
+        'api-key': BREVO_API_KEY,
+        'content-type': 'application/json'
+      }
     });
+
+    console.log('Email sent successfully:', response.data);
+    res.json({ success: true, message: 'Email sent successfully', data: response.data });
+
+  } catch (error) {
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      console.error('Brevo API Error Response:', error.response.data);
+      console.error('Status:', error.response.status);
+      res.status(error.response.status).json({
+        success: false,
+        error: 'Failed to send email via Brevo',
+        details: error.response.data
+      });
+    } else if (error.request) {
+      // The request was made but no response was received
+      console.error('Brevo API No Response:', error.request);
+      res.status(500).json({ success: false, error: 'No response from email provider' });
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.error('Server Internal Error:', error.message);
+      res.status(500).json({ success: false, error: 'Internal server error: ' + error.message });
+    }
   }
 });
 
 // Health check
-app.get('/make-server-88c4ddbd/health', (req, res) => {
+app.get('/health', (req, res) => {
   res.json({ status: 'healthy', timestamp: new Date().toISOString() });
 });
 
@@ -103,4 +100,6 @@ console.log(`Starting Node.js server on port ${PORT}...`);
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  if (!BREVO_API_KEY) console.warn('WARNING: BREVO_API_KEY is missing in .env');
+  if (!BREVO_SENDER_EMAIL) console.warn('WARNING: BREVO_SENDER_EMAIL is missing in .env');
 });

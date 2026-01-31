@@ -65,31 +65,31 @@ export function TermsOfServicePage() {
   ];
 
   return (
-    <div className="pt-16 bg-white overflow-hidden">
+    <div className="pt-16 bg-white dark:bg-slate-950 overflow-hidden transition-colors duration-500">
       {/* Hero Section */}
-      <section className="py-24 bg-gradient-to-br from-slate-50 to-gray-50 relative">
+      <section className="py-24 bg-gradient-to-br from-slate-50 to-gray-50 dark:from-slate-900 dark:to-slate-800 relative transition-colors duration-500">
         {/* Background decoration */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-emerald-100/30 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-amber-100/30 to-transparent rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-amber-100/30 to-transparent rounded-full blur-3xl"></div>
-        
+
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center space-y-6"
           >
-            <Link 
+            <Link
               to="/"
-              className="inline-flex items-center text-emerald-700 hover:text-emerald-800 transition-colors mb-4"
+              className="inline-flex items-center text-amber-700 hover:text-amber-800 dark:text-amber-500 dark:hover:text-amber-400 transition-colors mb-4"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Home
             </Link>
-            
+
             <h1 className="text-5xl lg:text-6xl text-slate-900 brand-font tracking-tight">
-              Terms of <span className="text-emerald-800 italic">Service</span>
+              Terms of <span className="text-slate-900 dark:text-white italic">Service</span>
             </h1>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
               Welcome to Lahori Samosa. By accessing or using our website, you agree to the following terms and conditions. Please read them carefully before placing an order or using our services.
             </p>
             <p className="text-sm text-slate-500">
@@ -113,8 +113,8 @@ export function TermsOfServicePage() {
                 className="bg-slate-50 rounded-2xl p-8 border border-slate-100"
               >
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <section.icon className="w-6 h-6 text-emerald-700" />
+                  <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <section.icon className="w-6 h-6 text-amber-700" />
                   </div>
                   <div className="space-y-4">
                     <h2 className="text-2xl text-slate-900 font-semibold">
@@ -138,11 +138,11 @@ export function TermsOfServicePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.8 }}
-              className="bg-gradient-to-br from-emerald-50 to-amber-50 rounded-2xl p-8 border border-emerald-100"
+              className="bg-gradient-to-br from-amber-50 to-amber-100 rounded-2xl p-8 border border-amber-100"
             >
               <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <Calendar className="w-6 h-6 text-emerald-700" />
+                <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <Calendar className="w-6 h-6 text-amber-700" />
                 </div>
                 <div className="space-y-4">
                   <h2 className="text-2xl text-slate-900 font-semibold">
@@ -159,7 +159,7 @@ export function TermsOfServicePage() {
       </section>
 
       {/* Contact Section */}
-      <section className="py-16 bg-gradient-to-br from-emerald-800 to-emerald-900">
+      <section className="py-16 bg-gradient-to-br from-slate-800 to-slate-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -170,10 +170,10 @@ export function TermsOfServicePage() {
             <h2 className="text-3xl font-semibold mb-6 brand-font">
               Questions About These Terms?
             </h2>
-            <p className="text-emerald-100 mb-8 text-lg">
+            <p className="text-slate-100 mb-8 text-lg">
               If you have any questions about these Terms of Service, please reach us at:
             </p>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
               <motion.a
                 href="mailto:samosastash@gmail.com"
@@ -184,7 +184,7 @@ export function TermsOfServicePage() {
                 <Mail className="w-5 h-5 flex-shrink-0" />
                 <span className="text-sm md:text-base text-center">samosastash@gmail.com</span>
               </motion.a>
-              
+
               <motion.a
                 href="tel:+923244060113"
                 whileHover={{ scale: 1.05 }}

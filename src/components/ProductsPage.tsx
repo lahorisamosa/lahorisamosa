@@ -14,49 +14,49 @@ export function ProductsPage() {
       id: '1',
       name: 'Pizza Samosa (12p)',
       price: 650,
-      image: '/images/products/PIZZA.jpg',
+      image: '/images/products/pizza.jpg',
       description: 'Delicious pizza-flavored samosas with melted cheese and savory toppings.'
     },
     {
       id: '2',
       name: 'Bar.B.Q Samosa (12p)',
       price: 600,
-      image: '/images/products/BBQ.jpg',
+      image: '/images/products/bbq.jpg',
       description: 'Smoky barbecue flavored samosas with tender meat and aromatic spices.'
     },
     {
       id: '3',
       name: 'Malai Boti Samosa (12p)',
       price: 480,
-      image: '/images/products/BOTI.jpg',
+      image: '/images/products/boti.jpg',
       description: 'Creamy malai boti samosas with rich, flavorful filling.'
     },
     {
       id: '4',
       name: 'Macaroni Samosa (12p)',
       price: 350,
-      image: '/images/products/MAC.png',
+      image: '/images/products/mac.png',
       description: 'Unique macaroni-filled samosas with cheesy goodness.'
     },
     {
       id: '5',
       name: 'Potato Samosa (12p)',
       price: 300,
-      image: '/images/products/POTATO.jpg',
+      image: '/images/products/potato.jpg',
       description: 'Classic potato samosas with perfectly spiced filling.'
     },
     {
       id: '6',
       name: 'Chicken Qeema Samosa',
       price: 450,
-      image: '/images/hero/CHICKKE~2.jpg',
+      image: '/images/products/chickenqeema.jpeg',
       description: 'Tender chicken qeema samosas with authentic Pakistani flavors.'
     },
     {
       id: '7',
       name: 'Chicken Vegetable Roll',
       price: 560,
-      image: '/images/products/VEGCHICROLL.jpg',
+      image: '/images/products/vegchicroll.jpg',
       description: 'Chicken and vegetable rolls perfect for any occasion.'
     }
   ];
@@ -68,11 +68,11 @@ export function ProductsPage() {
   };
 
   return (
-    <div className="pt-16 bg-slate-50 min-h-screen">
+    <div className="pt-16 bg-slate-50 dark:bg-slate-950 min-h-screen transition-colors duration-500">
       {/* Page Header */}
-      <section className="py-20 bg-emerald-900 relative overflow-hidden">
+      <section className="py-20 bg-slate-900 relative overflow-hidden">
         {/* Background gradients */}
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-500/20 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
@@ -84,7 +84,7 @@ export function ProductsPage() {
             <h1 className="text-5xl lg:text-6xl brand-font tracking-tight">
               Premium <span className="text-amber-400 italic">Collection</span>
             </h1>
-            <p className="text-xl text-emerald-100/80 max-w-2xl mx-auto leading-relaxed font-light">
+            <p className="text-xl text-slate-100/80 max-w-2xl mx-auto leading-relaxed font-light">
               Discover our complete range of authentic frozen foods, handcrafted with care and bursting with traditional flavors.
             </p>
           </motion.div>
@@ -112,10 +112,10 @@ export function ProductsPage() {
               >
                 <Link to={`/product/${product.id}`}>
                   <div
-                    className="bg-white rounded-2xl overflow-hidden transition-all duration-500 border border-slate-100"
+                    className="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden transition-all duration-500 border border-slate-100 dark:border-slate-800"
                     style={{
                       boxShadow: hoveredProduct === product.id
-                        ? "0 20px 40px -12px rgba(16, 185, 129, 0.2)"
+                        ? "0 20px 40px -12px rgba(245, 158, 11, 0.2)"
                         : "0 4px 6px -1px rgba(0, 0, 0, 0.05)"
                     }}
                   >
@@ -140,7 +140,7 @@ export function ProductsPage() {
                           y: hoveredProduct === product.id ? 0 : 10
                         }}
                         onClick={(e) => handleAddToCart(product, e)}
-                        className="absolute bottom-4 right-4 w-12 h-12 bg-white rounded-full shadow-lg hover:bg-emerald-50 transition-colors flex items-center justify-center text-emerald-700 z-20"
+                        className="absolute bottom-4 right-4 w-12 h-12 bg-white dark:bg-slate-800 rounded-full shadow-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors flex items-center justify-center text-slate-700 dark:text-slate-200 z-20"
                       >
                         <Plus className="w-6 h-6" />
                       </motion.button>
@@ -155,7 +155,7 @@ export function ProductsPage() {
                       </div>
 
                       {/* Product Name */}
-                      <h3 className="text-lg text-slate-900 group-hover:text-emerald-800 transition-colors font-bold leading-tight">
+                      <h3 className="text-lg text-slate-900 dark:text-white group-hover:text-amber-800 dark:group-hover:text-amber-400 transition-colors font-bold leading-tight">
                         {product.name}
                       </h3>
 
@@ -165,11 +165,11 @@ export function ProductsPage() {
                       </p>
 
                       <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
-                        <span className="text-xl font-bold text-emerald-700">
+                        <span className="text-xl font-bold text-slate-900 dark:text-white">
                           Rs.{product.price}
                         </span>
 
-                        <span className="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full group-hover:bg-emerald-100 transition-colors">
+                        <span className="text-xs font-semibold text-amber-700 bg-amber-50 px-2 py-1 rounded-full group-hover:bg-amber-100 transition-colors">
                           Premium
                         </span>
                       </div>
@@ -183,7 +183,7 @@ export function ProductsPage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-24 bg-white relative overflow-hidden">
+      <section className="py-24 bg-white dark:bg-slate-900 relative overflow-hidden transition-colors duration-500">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8 relative z-10">
           <motion.div
@@ -192,10 +192,10 @@ export function ProductsPage() {
             viewport={{ once: true }}
             className="space-y-4"
           >
-            <h2 className="text-4xl text-slate-900 brand-font">
+            <h2 className="text-4xl text-slate-900 dark:text-white brand-font">
               Need Help Choosing?
             </h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
               Our team is here to help you find the perfect products for your taste and occasion.
             </p>
           </motion.div>
@@ -204,10 +204,10 @@ export function ProductsPage() {
             <motion.button
               whileHover={{
                 scale: 1.05,
-                boxShadow: "0 20px 40px -12px rgba(16, 185, 129, 0.3)"
+                boxShadow: "0 20px 40px -12px rgba(245, 158, 11, 0.3)"
               }}
               whileTap={{ scale: 0.95 }}
-              className="px-10 py-5 bg-gradient-to-r from-emerald-800 to-emerald-700 text-white rounded-full transition-all duration-300 shadow-lg font-bold flex items-center gap-2 mx-auto"
+              className="px-10 py-5 bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-full transition-all duration-300 shadow-lg font-bold flex items-center gap-2 mx-auto hover:shadow-amber-500/20"
             >
               Get in Touch <ArrowRight className="w-5 h-5" />
             </motion.button>

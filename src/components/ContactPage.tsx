@@ -24,7 +24,7 @@ export function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
       // Send contact form email using business EmailJS account
       const response = await fetch(EMAIL_API_URL, {
@@ -50,7 +50,7 @@ export function ContactPage() {
 
       if (response.ok) {
         setSubmitted(true);
-        
+
         // Reset form after 3 seconds
         setTimeout(() => {
           setSubmitted(false);
@@ -123,23 +123,23 @@ export function ContactPage() {
   ];
 
   return (
-    <div className="pt-16 bg-white overflow-hidden">
+    <div className="pt-16 bg-slate-50 dark:bg-slate-950 overflow-hidden transition-colors duration-500">
       {/* Hero Section */}
-      <section className="py-24 bg-gradient-to-br from-slate-50 to-gray-50 relative">
-        {/* Background decoration */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-emerald-100/30 to-transparent rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-amber-100/30 to-transparent rounded-full blur-3xl"></div>
-        
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-slate-900 relative overflow-hidden">
+        {/* Background gradients */}
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center space-y-6"
+            className="space-y-6"
           >
-            <h1 className="text-5xl lg:text-6xl text-slate-900 brand-font tracking-tight">
-              Get in <span className="text-emerald-800 italic">Touch</span>
+            <h1 className="text-5xl lg:text-6xl text-white brand-font tracking-tight">
+              Get in <span className="text-amber-500 italic">Touch</span>
             </h1>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-slate-100/80 max-w-3xl mx-auto leading-relaxed font-light">
               We'd love to hear from you. Send us a message and we'll respond as soon as possible.
             </p>
           </motion.div>
@@ -147,13 +147,13 @@ export function ContactPage() {
       </section>
 
       {/* Contact Information */}
-      <section className="py-16 bg-white relative">
+      <section className="py-16 relative">
         {/* Subtle background pattern */}
         <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-emerald-200 to-transparent"></div>
+          <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-slate-200 to-transparent"></div>
           <div className="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-transparent via-amber-200 to-transparent"></div>
         </div>
-        
+
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {contactInfo.map((info, index) => (
@@ -163,25 +163,25 @@ export function ContactPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                whileHover={{ 
+                whileHover={{
                   y: -8,
                   scale: 1.02,
                   rotateX: 5
                 }}
-                className="group text-center p-8 bg-white rounded-xl hover:shadow-2xl transition-all duration-300 border border-slate-100 cursor-pointer"
+                className="group text-center p-8 bg-white dark:bg-slate-900 rounded-xl hover:shadow-2xl transition-all duration-300 border border-slate-100 dark:border-slate-800 cursor-pointer"
                 onClick={() => info.action && window.open(info.action, info.action.startsWith('http') ? '_blank' : '_self')}
               >
                 <motion.div
                   whileHover={{ scale: 1.1, rotate: 5 }}
-                  className="w-16 h-16 bg-gradient-to-br from-emerald-100 to-emerald-200 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:shadow-lg transition-all duration-300"
+                  className="w-16 h-16 bg-gradient-to-br from-amber-100 to-amber-200 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:shadow-lg transition-all duration-300"
                 >
-                  <info.icon className="w-8 h-8 text-emerald-700" />
+                  <info.icon className="w-8 h-8 text-amber-700" />
                 </motion.div>
-                <h3 className="text-lg text-slate-900 mb-2 group-hover:text-emerald-800 transition-colors">
+                <h3 className="text-lg text-slate-900 dark:text-white mb-2 group-hover:text-amber-800 dark:group-hover:text-amber-400 transition-colors">
                   {info.title}
                 </h3>
-                <p className="text-emerald-700 mb-2 font-medium">{info.details}</p>
-                <p className="text-slate-600 text-sm leading-relaxed">{info.description}</p>
+                <p className="text-amber-700 mb-2 font-medium">{info.details}</p>
+                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{info.description}</p>
               </motion.div>
             ))}
           </div>
@@ -189,7 +189,7 @@ export function ContactPage() {
       </section>
 
       {/* Contact Form & Business Hours */}
-      <section className="py-16 bg-gradient-to-br from-slate-50 to-gray-50">
+      <section className="py-16 bg-slate-50 dark:bg-slate-950 transition-colors duration-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
@@ -197,17 +197,17 @@ export function ContactPage() {
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-white rounded-2xl shadow-xl p-8 border border-slate-100"
+              className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl p-8 border border-slate-100 dark:border-slate-800"
             >
-              <h2 className="text-2xl text-slate-900 mb-6 flex items-center brand-font">
-                <Send className="w-6 h-6 mr-3 text-emerald-700" />
+              <h2 className="text-2xl text-slate-900 dark:text-white mb-6 flex items-center brand-font">
+                <Send className="w-6 h-6 mr-3 text-slate-700" />
                 Send us a Message
               </h2>
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm text-slate-700 mb-2 font-medium">
+                    <label className="block text-sm text-slate-700 dark:text-slate-300 mb-2 font-medium">
                       Full Name *
                     </label>
                     <input
@@ -216,13 +216,13 @@ export function ContactPage() {
                       required
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200"
+                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
                       placeholder="Your full name"
                     />
                   </div>
-                  
+
                   <div>
-                    <label className="block text-sm text-slate-700 mb-2 font-medium">
+                    <label className="block text-sm text-slate-700 dark:text-slate-300 mb-2 font-medium">
                       Phone Number
                     </label>
                     <input
@@ -230,14 +230,14 @@ export function ContactPage() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200"
+                      className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
                       placeholder="+92 XXX XXXXXXX"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm text-slate-700 mb-2 font-medium">
+                  <label className="block text-sm text-slate-700 dark:text-slate-300 mb-2 font-medium">
                     Email Address *
                   </label>
                   <input
@@ -246,13 +246,13 @@ export function ContactPage() {
                     required
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200"
+                    className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
                     placeholder="your@email.com"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm text-slate-700 mb-2 font-medium">
+                  <label className="block text-sm text-slate-700 dark:text-slate-300 mb-2 font-medium">
                     Subject *
                   </label>
                   <select
@@ -260,7 +260,7 @@ export function ContactPage() {
                     required
                     value={formData.subject}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200"
+                    className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
                   >
                     <option value="">Select a subject</option>
                     <option value="product-inquiry">Product Inquiry</option>
@@ -272,7 +272,7 @@ export function ContactPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm text-slate-700 mb-2 font-medium">
+                  <label className="block text-sm text-slate-700 dark:text-slate-300 mb-2 font-medium">
                     Message *
                   </label>
                   <textarea
@@ -281,7 +281,7 @@ export function ContactPage() {
                     value={formData.message}
                     onChange={handleInputChange}
                     rows={5}
-                    className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200"
+                    className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
                     placeholder="Tell us how we can help you..."
                   />
                 </div>
@@ -289,12 +289,12 @@ export function ContactPage() {
                 <motion.button
                   type="submit"
                   disabled={isSubmitting || submitted}
-                  whileHover={{ 
+                  whileHover={{
                     scale: 1.02,
-                    boxShadow: "0 10px 25px -8px rgba(6, 78, 59, 0.3)"
+                    boxShadow: "0 10px 25px -8px rgba(245, 158, 11, 0.3)"
                   }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full px-6 py-4 bg-emerald-800 text-white rounded-lg hover:bg-emerald-900 transition-colors shadow-lg disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+                  className="w-full px-6 py-4 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-colors shadow-lg disabled:opacity-50 disabled:cursor-not-allowed font-medium"
                 >
                   {isSubmitting ? (
                     <span className="flex items-center justify-center">
@@ -316,9 +316,9 @@ export function ContactPage() {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mt-6 p-4 bg-emerald-50 border border-emerald-200 rounded-lg"
+                  className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg"
                 >
-                  <p className="text-emerald-800 text-sm">
+                  <p className="text-amber-800 text-sm">
                     ✅ Message sent successfully! We'll get back to you within 24 hours.
                   </p>
                 </motion.div>
@@ -333,45 +333,45 @@ export function ContactPage() {
               className="space-y-8"
             >
               {/* Business Hours */}
-              <div className="bg-white rounded-2xl shadow-xl p-8 border border-slate-100">
-                <h2 className="text-2xl text-slate-900 mb-6 flex items-center brand-font">
-                  <Clock className="w-6 h-6 mr-3 text-emerald-700" />
+              <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl p-8 border border-slate-100 dark:border-slate-800">
+                <h2 className="text-2xl text-slate-900 dark:text-white mb-6 flex items-center brand-font">
+                  <Clock className="w-6 h-6 mr-3 text-amber-700" />
                   Business Hours
                 </h2>
-                
+
                 <div className="space-y-4">
                   <div className="flex justify-between items-center py-3 border-b border-slate-100">
-                    <span className="text-slate-700 font-medium">Monday - Friday</span>
-                    <span className="text-emerald-700 font-medium">9:00 AM - 8:00 PM</span>
+                    <span className="text-slate-700 dark:text-slate-300 font-medium">Monday - Friday</span>
+                    <span className="text-amber-700 font-medium">9:00 AM - 8:00 PM</span>
                   </div>
                   <div className="flex justify-between items-center py-3 border-b border-slate-100">
-                    <span className="text-slate-700 font-medium">Saturday</span>
-                    <span className="text-emerald-700 font-medium">10:00 AM - 6:00 PM</span>
+                    <span className="text-slate-700 dark:text-slate-300 font-medium">Saturday</span>
+                    <span className="text-amber-700 font-medium">10:00 AM - 6:00 PM</span>
                   </div>
                   <div className="flex justify-between items-center py-3">
-                    <span className="text-slate-700 font-medium">Sunday</span>
+                    <span className="text-slate-700 dark:text-slate-300 font-medium">Sunday</span>
                     <span className="text-red-600 font-medium">Closed</span>
                   </div>
                 </div>
 
-                <div className="mt-6 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
-                  <p className="text-sm text-emerald-800">
+                <div className="mt-6 p-4 bg-amber-50 rounded-lg border border-amber-200">
+                  <p className="text-sm text-amber-800">
                     <strong>Note:</strong> WhatsApp support is available 24/7 for urgent inquiries and order updates.
                   </p>
                 </div>
               </div>
 
               {/* Quick Contact */}
-              <div className="bg-gradient-to-br from-emerald-800 to-emerald-900 rounded-2xl shadow-xl p-8 text-white relative overflow-hidden">
+              <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl shadow-xl p-8 text-white relative overflow-hidden">
                 {/* Background decoration */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
-                
+
                 <div className="relative z-10">
                   <h3 className="text-xl mb-4 brand-font">Need Immediate Help?</h3>
-                  <p className="mb-6 text-emerald-100 leading-relaxed">
+                  <p className="mb-6 text-slate-100 leading-relaxed">
                     For urgent inquiries or immediate assistance, reach out to us directly:
                   </p>
-                  
+
                   <div className="space-y-4">
                     <motion.a
                       href="tel:+923244060113"
@@ -384,10 +384,10 @@ export function ContactPage() {
                       </div>
                       <div>
                         <div className="font-medium">Call Now</div>
-                        <div className="text-emerald-200 text-sm">{import.meta.env.VITE_BUSINESS_PHONE || "+92 324 4060113"}</div>
+                        <div className="text-white text-sm">{import.meta.env.VITE_BUSINESS_PHONE || "+92 324 4060113"}</div>
                       </div>
                     </motion.a>
-                    
+
                     <motion.a
                       href="https://wa.me/923244060113"
                       target="_blank"
@@ -401,7 +401,7 @@ export function ContactPage() {
                       </div>
                       <div>
                         <div className="font-medium">WhatsApp</div>
-                        <div className="text-emerald-200 text-sm">{import.meta.env.VITE_BUSINESS_PHONE || "+92 324 4060113"}</div>
+                        <div className="text-white text-sm">{import.meta.env.VITE_BUSINESS_PHONE || "+92 324 4060113"}</div>
                       </div>
                     </motion.a>
                   </div>
@@ -413,7 +413,7 @@ export function ContactPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white dark:bg-slate-950 transition-colors duration-500">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -421,8 +421,8 @@ export function ContactPage() {
             viewport={{ once: true }}
             className="text-center mb-12 space-y-4"
           >
-            <h2 className="text-4xl text-slate-900 brand-font">Frequently Asked Questions</h2>
-            <p className="text-xl text-slate-600">
+            <h2 className="text-4xl text-slate-900 dark:text-white brand-font">Frequently Asked Questions</h2>
+            <p className="text-xl text-slate-600 dark:text-slate-400">
               Quick answers to common questions
             </p>
           </motion.div>
@@ -435,14 +435,14 @@ export function ContactPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                whileHover={{ 
+                whileHover={{
                   y: -2,
                   boxShadow: "0 10px 25px -8px rgba(0, 0, 0, 0.1)"
                 }}
-                className="bg-slate-50 rounded-xl p-6 hover:bg-white transition-all duration-300 border border-slate-100"
+                className="bg-slate-50 dark:bg-slate-900 rounded-xl p-6 hover:bg-white dark:hover:bg-slate-800 transition-all duration-300 border border-slate-100 dark:border-slate-800"
               >
-                <h3 className="text-lg text-slate-900 mb-3 font-medium">{faq.question}</h3>
-                <p className="text-slate-600 leading-relaxed">{faq.answer}</p>
+                <h3 className="text-lg text-slate-900 dark:text-white mb-3 font-medium">{faq.question}</h3>
+                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{faq.answer}</p>
               </motion.div>
             ))}
           </div>

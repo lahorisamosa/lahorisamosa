@@ -43,9 +43,8 @@ export function Header() {
           backdropFilter: isScrolled ? 'blur(12px)' : 'blur(0px)',
         }}
         transition={{
-          type: "spring",
-          stiffness: 260,
-          damping: 20,
+          duration: 0.6,
+          ease: [0.16, 1, 0.3, 1], // out-expo
         }}
         className={`fixed left-1/2 z-50 ${isScrolled
           ? 'glass-panel shadow-lg min-w-[320px]'
@@ -60,7 +59,10 @@ export function Header() {
                 whileHover={{ scale: 1.05 }}
                 className="relative"
               >
-                <span className={`text-2xl brand-font tracking-tight font-bold ${isScrolled ? 'text-emerald-900 dark:text-white' : 'text-white'}`}>
+                <span className={`text-2xl brand-font tracking-tight font-bold transition-colors duration-300 ${isScrolled || location.pathname !== '/'
+                  ? 'text-slate-900 dark:text-white'
+                  : 'text-white'
+                  }`}>
                   Lahori<span className="text-amber-500 italic"> Samosa</span>
                 </span>
               </motion.div>
@@ -73,8 +75,10 @@ export function Header() {
                   key={link.name}
                   to={link.path}
                   className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${location.pathname === link.path
-                    ? 'text-amber-500'
-                    : isScrolled ? 'text-slate-600 hover:text-emerald-700 dark:text-emerald-100 dark:hover:text-amber-400' : 'text-emerald-100 hover:text-white'
+                    ? 'text-amber-600 dark:text-amber-500'
+                    : isScrolled || location.pathname !== '/'
+                      ? 'text-slate-600 hover:text-amber-600 dark:text-slate-100 dark:hover:text-amber-400'
+                      : 'text-slate-100 hover:text-white'
                     }`}
                 >
                   {link.name}
@@ -101,12 +105,14 @@ export function Header() {
                 <motion.button
                   whileHover={{
                     scale: 1.05,
-                    boxShadow: "0 8px 20px -8px rgba(16, 185, 129, 0.4)"
+                    boxShadow: "0 8px 20px -8px rgba(245, 158, 11, 0.4)"
                   }}
                   whileTap={{ scale: 0.95 }}
                   className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 shadow-md flex items-center gap-2 ${isScrolled
-                    ? 'bg-gradient-to-r from-emerald-700 to-emerald-600 text-white dark:from-amber-500 dark:to-amber-600 dark:text-emerald-950'
-                    : 'bg-white text-emerald-900 hover:bg-emerald-50 dark:bg-emerald-900/80 dark:text-emerald-50 dark:hover:bg-emerald-800'
+                    ? 'bg-gradient-to-r from-amber-600 to-amber-500 text-slate-950 hover:from-amber-500 hover:to-amber-400'
+                    : location.pathname !== '/'
+                      ? 'bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100'
+                      : 'bg-white text-slate-900 hover:bg-slate-50 dark:bg-slate-800 dark:text-slate-50 dark:hover:bg-slate-700'
                     }`}
                 >
                   Order Now
@@ -118,8 +124,8 @@ export function Header() {
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  className={`relative p-2 rounded-full transition-colors ${isScrolled
-                    ? 'text-slate-600 hover:text-emerald-800 bg-slate-50/50 dark:text-emerald-100 dark:hover:text-amber-400 dark:bg-white/5'
+                  className={`relative p-2 rounded-full transition-colors ${isScrolled || location.pathname !== '/'
+                    ? 'text-slate-600 hover:text-amber-600 bg-slate-50/50 dark:text-slate-100 dark:hover:text-amber-400 dark:bg-white/5'
                     : 'text-white hover:text-amber-400 bg-white/10 backdrop-blur-sm'
                     }`}
                 >
@@ -140,7 +146,7 @@ export function Header() {
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className={`md:hidden p-2 rounded-full transition-colors ${isScrolled
-                  ? 'text-slate-600 hover:text-emerald-800 bg-slate-50/50 dark:text-white dark:bg-white/10'
+                  ? 'text-slate-600 hover:text-amber-600 bg-slate-50/50 dark:text-white dark:bg-white/10'
                   : 'text-white hover:text-amber-400 bg-white/10 backdrop-blur-sm'
                   }`}
               >
@@ -169,8 +175,8 @@ export function Header() {
                       to={link.path}
                       onClick={() => setIsMobileMenuOpen(false)}
                       className={`block px-4 py-3 text-sm font-medium transition-colors rounded-xl ${location.pathname === link.path
-                        ? 'text-emerald-900 bg-emerald-50/80 border border-emerald-100'
-                        : 'text-slate-600 hover:text-emerald-800 hover:bg-emerald-50/50'
+                        ? 'text-slate-900 bg-amber-50/80 border border-amber-100'
+                        : 'text-slate-600 hover:text-amber-600 hover:bg-slate-50/50'
                         }`}
                     >
                       {link.name}
@@ -179,7 +185,7 @@ export function Header() {
                   <Link
                     to="/products"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block w-full text-center px-4 py-3 mt-4 bg-emerald-700 text-white rounded-xl text-sm font-medium shadow-md"
+                    className="block w-full text-center px-4 py-3 mt-4 bg-amber-500 text-slate-950 rounded-xl text-sm font-medium shadow-md"
                   >
                     Order Now
                   </Link>

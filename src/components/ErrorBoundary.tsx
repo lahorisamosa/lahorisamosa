@@ -52,11 +52,11 @@ export class ErrorBoundary extends Component<Props, State> {
             >
               <AlertTriangle className="w-8 h-8 text-red-600" />
             </motion.div>
-            
+
             <h1 className="text-2xl font-bold text-gray-900 mb-3">
               Oops! Something went wrong
             </h1>
-            
+
             <p className="text-gray-600 mb-6">
               We encountered an unexpected error. Don't worry, this has been logged and we'll look into it.
             </p>
@@ -78,12 +78,12 @@ export class ErrorBoundary extends Component<Props, State> {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={this.handleReload}
-                className="w-full px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors flex items-center justify-center space-x-2"
+                className="w-full px-6 py-3 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors flex items-center justify-center space-x-2"
               >
                 <RefreshCw className="w-4 h-4" />
                 <span>Try Again</span>
               </motion.button>
-              
+
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}

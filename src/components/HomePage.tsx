@@ -2,54 +2,26 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Leaf, Clock, Award, ArrowRight, Star, CheckCircle, XCircle, Loader2 } from 'lucide-react';
 import { ResponsiveImage } from './ResponsiveImage';
-import { JazzCashService } from '../utils/jazzcashService';
+
 import { useEffect, useState, useRef } from 'react';
 
 export function HomePage() {
   const [searchParams] = useSearchParams();
-  const [paymentStatus, setPaymentStatus] = useState<{
-    isValid: boolean;
-    isSuccess: boolean;
-    message: string;
-    orderId?: string;
-  } | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // States for payment confirmation (added to fix build)
+  const [isLoading, setIsLoading] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState<{ isSuccess: boolean, message: string, orderId?: string } | null>(null);
 
   // Force rebuild test
   useEffect(() => {
     console.log('🚀 BUILD TEST - Hash fix deployed at:', new Date().toISOString());
   }, []);
 
-  // Handle payment confirmation
-  useEffect(() => {
-    const paymentParam = searchParams.get('payment');
-    if (paymentParam === 'confirmation') {
-      setIsLoading(true);
 
-      try {
-        const responseData: Record<string, string> = {};
-        searchParams.forEach((value, key) => {
-          responseData[key] = value;
-        });
 
-        const verification = JazzCashService.verifyPaymentResponse(responseData);
-        setPaymentStatus(verification);
-      } catch (error) {
-        console.error('Payment confirmation error:', error);
-        setPaymentStatus({
-          isValid: false,
-          isSuccess: false,
-          message: 'Payment verification failed. Please contact support.'
-        });
-      } finally {
-        setIsLoading(false);
-      }
-    }
-  }, [searchParams]);
-
-  const heroImage = "/images/hero/herosection.jpg";
-  const samosaImage = "/images/products/POTATO.jpg";
+  const heroImage = "/images/hero/heroimage.jpg";
+  const samosaImage = "/images/products/chickenqeema.jpeg";
 
   const features = [
     {
@@ -72,23 +44,23 @@ export function HomePage() {
   // Show payment confirmation if payment parameter is present
   if (searchParams.get('payment') === 'confirmation') {
     return (
-      <div className="pt-20 min-h-screen bg-emerald-50 flex items-center justify-center">
+      <div className="pt-20 min-h-screen bg-slate-50 flex items-center justify-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="glass-card rounded-2xl p-8 max-w-md w-full text-center border border-emerald-100 shadow-xl"
+          className="glass-card rounded-2xl p-8 max-w-md w-full text-center border border-slate-200 shadow-xl"
         >
           <div className="mb-6 flex justify-center">
             {isLoading ? (
-              <Loader2 className="w-20 h-20 text-emerald-600 animate-spin" />
+              <Loader2 className="w-20 h-20 text-amber-600 animate-spin" />
             ) : paymentStatus?.isSuccess ? (
-              <CheckCircle className="w-20 h-20 text-emerald-500" />
+              <CheckCircle className="w-20 h-20 text-amber-600" />
             ) : (
               <XCircle className="w-20 h-20 text-red-500" />
             )}
           </div>
 
-          <h1 className="text-3xl font-bold text-emerald-900 mb-3 brand-font">
+          <h1 className="text-3xl font-bold text-slate-900 mb-3 brand-font">
             {isLoading ? 'Processing Payment...' : paymentStatus?.isSuccess ? 'Payment Successful!' : 'Payment Failed'}
           </h1>
 
@@ -97,9 +69,9 @@ export function HomePage() {
           </p>
 
           {paymentStatus?.orderId && (
-            <div className="bg-emerald-50 rounded-lg p-3 mb-6 border border-emerald-100">
-              <p className="text-emerald-800 text-sm font-medium">Order Reference</p>
-              <p className="font-mono text-lg font-bold text-emerald-900">{paymentStatus.orderId}</p>
+            <div className="bg-amber-50 rounded-lg p-3 mb-6 border border-amber-100">
+              <p className="text-amber-800 text-sm font-medium">Order Reference</p>
+              <p className="font-mono text-lg font-bold text-slate-900">{paymentStatus.orderId}</p>
             </div>
           )}
 
@@ -107,7 +79,7 @@ export function HomePage() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => window.location.href = '/'}
-            className="w-full px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors shadow-lg font-medium"
+            className="w-full px-6 py-3 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-colors shadow-lg font-medium"
           >
             Continue Shopping
           </motion.button>
@@ -129,9 +101,9 @@ export function HomePage() {
             objectFit="cover"
             priority={true}
           />
-          {/* Dark Overlay for Readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-emerald-950/90 mix-blend-multiply"></div>
-          <div className="absolute inset-0 bg-black/30"></div>
+          {/* Dark Overlay for Readability - Lightened */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-slate-950/70 mix-blend-multiply"></div>
+          <div className="absolute inset-0 bg-black/10"></div>
         </div>
 
         {/* Content */}
@@ -147,7 +119,7 @@ export function HomePage() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="inline-block px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-emerald-100 text-sm font-medium backdrop-blur-sm"
+                className="inline-block px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-slate-100 text-sm font-medium backdrop-blur-sm"
               >
                 Since 2024 • Taste of Lahore
               </motion.span>
@@ -169,7 +141,7 @@ export function HomePage() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-full sm:w-auto px-10 py-5 bg-amber-500 text-emerald-950 rounded-full text-lg font-bold transition-all duration-300 shadow-[0_0_20px_rgba(245,158,11,0.4)] hover:shadow-[0_0_40px_rgba(245,158,11,0.6)] flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-10 py-5 bg-amber-500 text-slate-950 rounded-full text-lg font-bold transition-all duration-300 shadow-[0_0_20px_rgba(245,158,11,0.4)] hover:shadow-[0_0_40px_rgba(245,158,11,0.6)] flex items-center justify-center gap-2"
                 >
                   Explore Menu <ArrowRight className="w-5 h-5" />
                 </motion.button>
@@ -216,10 +188,10 @@ export function HomePage() {
       </section>
 
       {/* Features Section - Royal Dark Theme (Adaptive) */}
-      <section className="py-24 bg-slate-50 dark:bg-emerald-900 relative transition-colors duration-500">
+      <section className="py-24 bg-slate-50 dark:bg-slate-900 relative transition-colors duration-500">
         <div className="absolute inset-0 opacity-5 dark:opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(var(--pattern-color) 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
         {/* Ambient Glows (Dark Mode Only) */}
-        <div className="hidden dark:block absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-600/20 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+        <div className="hidden dark:block absolute top-0 right-0 w-[500px] h-[500px] bg-amber-600/20 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -228,7 +200,7 @@ export function HomePage() {
             viewport={{ once: true }}
             className="text-center mb-16 space-y-4"
           >
-            <span className="text-emerald-600 dark:text-amber-400 font-medium tracking-wider text-sm uppercase">Our Promise</span>
+            <span className="text-amber-600 dark:text-amber-400 font-medium tracking-wider text-sm uppercase">Our Promise</span>
             <h2 className="text-4xl text-slate-900 dark:text-white brand-font">
               Why Choose Lahori Samosa?
             </h2>
@@ -246,20 +218,20 @@ export function HomePage() {
                 whileHover={{ y: -10 }}
                 className="group p-8 bg-white dark:bg-white/5 backdrop-blur-md rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm dark:shadow-xl hover:shadow-2xl dark:hover:bg-white/10 transition-all duration-500 relative overflow-hidden"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 dark:hidden"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 dark:hidden"></div>
 
                 <div className="relative z-10">
                   <motion.div
                     whileHover={{ rotate: 10, scale: 1.1 }}
-                    className="w-16 h-16 bg-emerald-100 dark:bg-gradient-to-br dark:from-amber-400 dark:to-amber-600 rounded-2xl flex items-center justify-center mb-6 text-emerald-700 dark:text-emerald-950 shadow-inner dark:shadow-lg transition-colors duration-500"
+                    className="w-16 h-16 bg-amber-100 dark:bg-gradient-to-br dark:from-amber-400 dark:to-amber-600 rounded-2xl flex items-center justify-center mb-6 text-amber-700 dark:text-slate-950 shadow-inner dark:shadow-lg transition-colors duration-500"
                   >
                     <feature.icon className="w-8 h-8" />
                   </motion.div>
 
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4 group-hover:text-emerald-800 dark:group-hover:text-amber-400 transition-colors">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4 group-hover:text-amber-800 dark:group-hover:text-amber-400 transition-colors">
                     {feature.title}
                   </h3>
-                  <p className="text-slate-600 dark:text-emerald-100/80 leading-relaxed group-hover:text-slate-700 dark:group-hover:text-white transition-colors">
+                  <p className="text-slate-600 dark:text-slate-100/80 leading-relaxed group-hover:text-slate-700 dark:group-hover:text-white transition-colors">
                     {feature.description}
                   </p>
                 </div>
@@ -270,8 +242,8 @@ export function HomePage() {
       </section>
 
       {/* Featured Product Section - Dark Theme Twist */}
-      <section className="py-24 bg-emerald-950 relative overflow-hidden text-white">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-600/20 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+      <section className="py-24 bg-slate-950 relative overflow-hidden text-white">
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-amber-600/10 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-amber-600/10 rounded-full blur-[80px] -translate-x-1/2 translate-y-1/2 pointer-events-none"></div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -286,7 +258,7 @@ export function HomePage() {
             >
               <motion.div
                 whileHover={{ rotateY: -10, rotateX: 5, scale: 1.02 }}
-                className="relative group bg-gradient-to-br from-emerald-900 to-emerald-950 p-4 rounded-3xl border border-emerald-800/50 shadow-2xl"
+                className="relative group bg-gradient-to-br from-slate-900 to-slate-950 p-4 rounded-3xl border border-white/10 shadow-2xl"
               >
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                   <ResponsiveImage
@@ -300,7 +272,7 @@ export function HomePage() {
                   <div className="absolute bottom-0 inset-x-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent p-6 flex items-end">
                     <div className="text-white">
                       <p className="text-amber-400 font-bold tracking-wider text-sm mb-1 uppercase">Best Seller</p>
-                      <h4 className="text-2xl font-serif">Original Chicken Samosa</h4>
+                      <h4 className="text-2xl font-serif">Chicken Qeema Samosa</h4>
                     </div>
                   </div>
                 </div>
@@ -321,14 +293,14 @@ export function HomePage() {
                   <Star className="fill-current w-5 h-5" />
                   <Star className="fill-current w-5 h-5" />
                   <Star className="fill-current w-5 h-5" />
-                  <span className="text-emerald-200 ml-2 text-sm">(2,400+ reviews)</span>
+                  <span className="text-slate-200 ml-2 text-sm">(2,400+ reviews)</span>
                 </div>
 
                 <h3 className="text-4xl lg:text-5xl text-white brand-font leading-tight">
                   The <span className="text-amber-400">Signature</span> Taste
                 </h3>
 
-                <p className="text-xl text-emerald-100/80 leading-relaxed font-light">
+                <p className="text-xl text-slate-100/80 leading-relaxed font-light">
                   Our most popular item - crispy, golden samosas filled with perfectly
                   spiced ingredients. Each bite delivers authentic Pakistani flavors
                   that transport you to the streets of Lahore.
@@ -348,10 +320,10 @@ export function HomePage() {
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.1 }}
                   >
-                    <div className="w-8 h-8 rounded-full bg-emerald-800 flex items-center justify-center border border-emerald-700">
+                    <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center border border-slate-700">
                       <CheckCircle className="w-5 h-5 text-amber-400" />
                     </div>
-                    <span className="text-emerald-50 text-lg">{item}</span>
+                    <span className="text-slate-50 text-lg">{item}</span>
                   </motion.div>
                 ))}
               </div>
@@ -361,9 +333,9 @@ export function HomePage() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-10 py-4 bg-white text-emerald-950 rounded-full font-bold shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all duration-300"
+                    className="px-10 py-4 bg-white text-slate-950 rounded-full font-bold shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all duration-300"
                   >
-                    Order Now - $12.99
+                    Order Now - Rs.450
                   </motion.button>
                 </Link>
               </div>
@@ -373,10 +345,10 @@ export function HomePage() {
       </section>
 
       {/* Call to Action - Royal Dark Theme (Adaptive) */}
-      <section className="py-32 bg-white dark:bg-emerald-950 relative overflow-hidden transition-colors duration-500">
+      <section className="py-32 bg-white dark:bg-slate-950 relative overflow-hidden transition-colors duration-500">
         {/* Background Effects */}
-        <div className="absolute inset-0 bg-emerald-50 dark:bg-emerald-900/50 transition-colors duration-500"></div>
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-200 dark:via-amber-500/50 to-transparent"></div>
+        <div className="absolute inset-0 bg-slate-50 dark:bg-slate-900/50 transition-colors duration-500"></div>
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-amber-500/50 to-transparent"></div>
         <div className="hidden dark:block absolute bottom-0 right-0 w-[600px] h-[600px] bg-amber-600/10 rounded-full blur-[120px] translate-x-1/2 translate-y-1/2 pointer-events-none"></div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-10">
@@ -386,10 +358,10 @@ export function HomePage() {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <h2 className="text-5xl sm:text-6xl text-emerald-900 dark:text-white brand-font drop-shadow-none dark:drop-shadow-lg transition-colors duration-500">
+            <h2 className="text-5xl sm:text-6xl text-slate-900 dark:text-white brand-font drop-shadow-none dark:drop-shadow-lg transition-colors duration-500">
               Ready to <span className="text-amber-500 italic">Feast?</span>
             </h2>
-            <p className="text-xl text-slate-600 dark:text-emerald-100/80 max-w-2xl mx-auto leading-relaxed transition-colors duration-500">
+            <p className="text-xl text-slate-600 dark:text-slate-100/80 max-w-2xl mx-auto leading-relaxed transition-colors duration-500">
               Join thousands of satisfied customers who trust Lahori Samosa
               for their authentic Pakistani cuisine needs.
             </p>
@@ -399,7 +371,7 @@ export function HomePage() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-12 py-6 bg-gradient-to-r from-emerald-600 to-emerald-500 dark:from-amber-500 dark:to-amber-600 text-white dark:text-emerald-950 rounded-2xl text-xl font-bold hover:shadow-2xl hover:shadow-emerald-500/30 dark:shadow-[0_0_30px_rgba(245,158,11,0.3)] dark:hover:shadow-[0_0_50px_rgba(245,158,11,0.5)] transition-all duration-300"
+              className="px-12 py-6 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 rounded-2xl text-xl font-bold hover:shadow-2xl hover:shadow-amber-500/30 transition-all duration-300"
             >
               Start Shopping Now
             </motion.button>
