@@ -57,18 +57,18 @@ export default function App() {
             ) : (
               <motion.div
                 key="content"
-                initial={{ opacity: 0, clipPath: 'inset(0% 50% 0% 50%)' }}
-                animate={{ opacity: 1, clipPath: 'inset(0% 0% 0% 0%)' }}
-                transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1] }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
                 className="flex flex-col min-h-screen"
               >
                 <Router>
                   <ScrollToTop />
-                  <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-500 flex flex-col relative text-slate-900 dark:text-slate-100">
+                  <div className="flex-1 flex flex-col relative bg-slate-50 dark:bg-slate-950 transition-colors duration-500">
                     <Header />
 
                     <main
-                      className="flex-1 relative z-10 bg-white dark:bg-slate-900 rounded-b-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.2)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden transition-colors duration-500"
+                      className="flex-1 relative z-10 bg-white dark:bg-slate-900 rounded-b-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.6)] overflow-hidden transition-colors duration-500"
                       style={{ marginBottom: `${footerHeight}px` }}
                     >
                       <Suspense fallback={<LoadingFallback />}>
@@ -94,7 +94,7 @@ export default function App() {
 
                     <div
                       ref={footerRef}
-                      className="fixed bottom-0 left-0 right-0 z-0 bg-slate-950 dark:bg-black transition-colors duration-500"
+                      className="fixed bottom-0 left-0 right-0 z-0 bg-slate-900 dark:bg-black"
                     >
                       <Footer />
                     </div>
