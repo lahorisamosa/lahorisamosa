@@ -11,7 +11,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const [theme, setTheme] = useState<Theme>(() => {
-        // Force dark mode on first visit
+        // Check for saved theme; otherwise default to light
         if (typeof window !== 'undefined') {
             const savedTheme = localStorage.getItem('theme') as Theme;
             if (savedTheme) {

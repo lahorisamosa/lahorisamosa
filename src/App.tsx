@@ -32,19 +32,17 @@ import { AnimatePresence, motion } from 'motion/react';
 export default function App() {
   const [loading, setLoading] = React.useState(true);
   const [footerHeight, setFooterHeight] = React.useState(0);
-  const footerRef = React.useRef<HTMLDivElement>(null);
 
-  React.useEffect(() => {
-    if (!footerRef.current) return;
-
-    const resizeObserver = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        setFooterHeight(entry.contentRect.height);
-      }
-    });
-
-    resizeObserver.observe(footerRef.current);
-    return () => resizeObserver.disconnect();
+  // Robust height measurement that works even after the loader finishes
+  const footerMeasureRef = React.useCallback((node: HTMLDivElement | null) => {
+    if (node !== null) {
+      const resizeObserver = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          setFooterHeight(entry.contentRect.height);
+        }
+      });
+      resizeObserver.observe(node);
+    }
   }, []);
 
   return (
@@ -59,7 +57,7 @@ export default function App() {
                 key="content"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
+                transition={{ duration: 1, ease: "easeOut" }}
                 className="flex flex-col min-h-screen"
               >
                 <Router>
@@ -68,7 +66,7 @@ export default function App() {
                     <Header />
 
                     <main
-                      className="flex-1 relative z-10 bg-white dark:bg-slate-900 rounded-b-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.6)] overflow-hidden transition-colors duration-500"
+                      className="flex-1 relative z-20 bg-white dark:bg-slate-900 rounded-b-[3.5rem] shadow-[0_30px_60px_rgba(0,0,0,0.12)] dark:shadow-[0_30px_60px_rgba(0,0,0,0.5)] overflow-hidden transition-colors duration-500"
                       style={{ marginBottom: `${footerHeight}px` }}
                     >
                       <Suspense fallback={<LoadingFallback />}>
@@ -93,7 +91,7 @@ export default function App() {
                     </main>
 
                     <div
-                      ref={footerRef}
+                      ref={footerMeasureRef}
                       className="fixed bottom-0 left-0 right-0 z-0 bg-slate-900 dark:bg-black"
                     >
                       <Footer />
