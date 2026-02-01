@@ -98,9 +98,9 @@ export function ProductsPage() {
       </section>
 
       {/* Products Grid */}
-      <section className="py-16 relative">
+      <section className="py-10 sm:py-16 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
             {products.map((product, index) => (
               <motion.div
                 key={product.id}
@@ -146,36 +146,36 @@ export function ProductsPage() {
                           y: hoveredProduct === product.id ? 0 : 10
                         }}
                         onClick={(e) => handleAddToCart(product, e)}
-                        className="absolute bottom-4 right-4 w-12 h-12 bg-white dark:bg-slate-800 rounded-full shadow-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors flex items-center justify-center text-slate-700 dark:text-slate-200 z-20"
+                        className="absolute bottom-4 right-4 w-10 h-10 sm:w-12 sm:h-12 bg-white dark:bg-slate-800 rounded-full shadow-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors flex items-center justify-center text-slate-700 dark:text-slate-200 z-20"
                       >
-                        <Plus className="w-6 h-6" />
+                        <Plus className="w-5 h-5 sm:w-6 sm:h-6" />
                       </motion.button>
                     </div>
 
                     {/* Product Info */}
-                    <div className="p-6 space-y-3 relative">
+                    <div className="p-4 sm:p-6 space-y-2 sm:space-y-3 relative">
                       {/* Rating */}
                       <div className="flex items-center space-x-1">
-                        <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-                        <span className="text-xs text-slate-400 font-medium">4.8 (120+)</span>
+                        <Star className="w-3 h-3 sm:w-4 sm:h-4 text-amber-400 fill-amber-400" />
+                        <span className="text-[10px] sm:text-xs text-slate-400 font-medium">4.8 (120+)</span>
                       </div>
 
                       {/* Product Name */}
-                      <h3 className="text-lg text-slate-900 dark:text-white group-hover:text-amber-800 dark:group-hover:text-amber-400 transition-colors font-bold leading-tight">
+                      <h3 className="text-base sm:text-lg text-slate-900 dark:text-white group-hover:text-amber-800 dark:group-hover:text-amber-400 transition-colors font-bold leading-tight">
                         {product.name}
                       </h3>
 
                       {/* Description */}
-                      <p className="text-sm text-slate-500 leading-relaxed line-clamp-2 h-10">
+                      <p className="text-xs sm:text-sm text-slate-500 leading-relaxed line-clamp-2 h-8 sm:h-10">
                         {product.description}
                       </p>
 
                       <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
-                        <span className="text-xl font-bold text-slate-900 dark:text-white">
+                        <span className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
                           Rs.{product.price}
                         </span>
 
-                        <span className="text-xs font-semibold text-amber-700 bg-amber-50 px-2 py-1 rounded-full group-hover:bg-amber-100 transition-colors">
+                        <span className="text-[10px] sm:text-xs font-semibold text-amber-700 bg-amber-50 px-2 py-1 rounded-full group-hover:bg-amber-100 transition-colors">
                           Premium
                         </span>
                       </div>
@@ -206,14 +206,14 @@ export function ProductsPage() {
             </p>
           </motion.div>
 
-          <Link to="/contact">
+          <Link to="/contact" className="inline-block mt-6">
             <motion.button
               whileHover={{
                 scale: 1.05,
                 boxShadow: "0 20px 40px -12px rgba(245, 158, 11, 0.3)"
               }}
               whileTap={{ scale: 0.95 }}
-              className="px-6 py-3 sm:px-10 sm:py-5 bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-full transition-all duration-300 shadow-lg font-bold flex items-center gap-2 mx-auto hover:shadow-amber-500/20 text-sm sm:text-base"
+              className="px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-full transition-all duration-300 shadow-lg font-bold flex items-center gap-2 mx-auto hover:shadow-amber-500/20 text-sm sm:text-base"
             >
               Get in Touch <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </motion.button>

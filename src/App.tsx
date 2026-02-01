@@ -39,6 +39,36 @@ export default function App() {
   const location = useLocation();
   const isAdmin = location.pathname.startsWith('/admin');
 
+  const [assetsLoaded, setAssetsLoaded] = React.useState(false);
+
+  // Critical assets to preload
+  const CRITICAL_IMAGES = [
+    "/images/hero/heroimage.webp",
+    "/images/hero/hero-mobile.webp",
+    "/images/products/chickenqeema.webp" // Used in featured section
+  ];
+
+  const preloadImages = async (srcs: string[]) => {
+    const promises = srcs.map((src) => {
+      return new Promise((resolve, reject) => {
+        // If image is already cached, resolve immediately (though new Image() usually handles this)
+        const img = new Image();
+        img.src = src;
+        img.onload = resolve;
+        img.onerror = resolve; // Continue even if one fails
+      });
+    });
+    await Promise.all(promises);
+  };
+
+  React.useEffect(() => {
+    // Start preloading immediately
+    preloadImages(CRITICAL_IMAGES).then(() => {
+      console.log('Critical assets loaded');
+      setAssetsLoaded(true);
+    });
+  }, []);
+
   // Hide Brevo Chat during loading
   React.useEffect(() => {
     // The ID for the Brevo widget container often varies or is dynamically injected. 
@@ -110,7 +140,11 @@ export default function App() {
         <CartProvider>
           <AnimatePresence mode="wait">
             {loading ? (
-              <LuxuryLoader key="loader" onComplete={() => setLoading(false)} />
+              <LuxuryLoader
+                key="loader"
+                assetsLoaded={assetsLoaded}
+                onComplete={() => setLoading(false)}
+              />
             ) : (
               <motion.div
                 key="content"

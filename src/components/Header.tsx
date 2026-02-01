@@ -8,17 +8,29 @@ import { ThemeToggle } from './ThemeToggle';
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const { state } = useCart();
   const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const currentScrollY = window.scrollY;
+
+      // Show on scroll up or at top, hide on scroll down
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+
+      setLastScrollY(currentScrollY);
+      setIsScrolled(currentScrollY > 20);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -34,7 +46,7 @@ export function Header() {
       <motion.header
         initial={{ y: -100, x: "-50%", opacity: 0 }}
         animate={{
-          y: 0,
+          y: isVisible ? 0 : -100,
           x: "-50%",
           opacity: 1,
           width: isScrolled ? 'auto' : '100%',

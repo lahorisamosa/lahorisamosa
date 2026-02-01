@@ -312,14 +312,14 @@ export function AboutPage() {
             </p>
           </motion.div>
 
-          <Link to="/products">
+          <Link to="/products" className="inline-block mt-8">
             <motion.button
               whileHover={{
                 scale: 1.05,
                 boxShadow: "0 25px 50px -12px rgba(245, 158, 11, 0.25)"
               }}
               whileTap={{ scale: 0.95 }}
-              className="px-12 py-6 bg-gradient-to-r from-slate-800 to-slate-900 text-white rounded-lg transition-all duration-300 shadow-xl hover:shadow-2xl text-lg hover:shadow-amber-500/10"
+              className="px-8 py-3 sm:px-10 sm:py-4 bg-gradient-to-r from-slate-800 to-slate-900 text-white rounded-lg transition-all duration-300 shadow-xl hover:shadow-2xl text-sm sm:text-base hover:shadow-amber-500/10"
             >
               Explore Our Products
             </motion.button>

@@ -82,29 +82,29 @@ export function HomePage() {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 flex flex-col justify-center h-full pt-16 sm:pt-0 pb-8 sm:pb-0">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-8 flex flex-col justify-center h-full pt-4 sm:pt-0 pb-4 sm:pb-0">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="space-y-3 sm:space-y-8 max-w-4xl w-full text-left sm:text-center mx-auto"
+            className="space-y-2 sm:space-y-8 max-w-4xl w-full text-left sm:text-center mx-auto"
           >
-            <motion.div className="space-y-2 sm:space-y-4">
+            <motion.div className="space-y-1 sm:space-y-4">
               <motion.span
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="inline-block px-3 py-1 rounded-full bg-white/10 border border-white/20 text-slate-100 text-[10px] sm:text-sm font-medium backdrop-blur-md"
+                className="inline-block px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-white/10 border border-white/20 text-slate-100 text-[9px] sm:text-sm font-medium backdrop-blur-md"
               >
                 Since 2024 • Taste of Lahore
               </motion.span>
-              <h1 className="text-4xl sm:text-7xl lg:text-9xl text-white brand-font tracking-tight leading-none drop-shadow-2xl">
+              <h1 className="text-3xl sm:text-7xl lg:text-9xl text-white brand-font tracking-tight leading-none drop-shadow-2xl">
                 Lahori
                 <span className="text-amber-400 italic block mt-0 sm:mt-2">Samosa</span>
               </h1>
             </motion.div>
 
-            <p className="text-base sm:text-2xl text-white/90 max-w-xl sm:mx-auto leading-relaxed font-light drop-shadow-lg pr-4 sm:pr-0">
+            <p className="text-sm sm:text-2xl text-white/90 max-w-xl sm:mx-auto leading-relaxed font-light drop-shadow-lg pr-4 sm:pr-0">
               Authentic Pakistani cuisine, expertly crafted and perfectly preserved.
               Experience the royal flavors of tradition.
             </p>
@@ -163,7 +163,7 @@ export function HomePage() {
       </section>
 
       {/* Features Section - Royal Dark Theme (Adaptive) */}
-      <section className="py-24 bg-slate-50 dark:bg-slate-900 relative transition-colors duration-500">
+      <section className="py-12 sm:py-24 bg-slate-50 dark:bg-slate-900 relative transition-colors duration-500">
         <div className="absolute inset-0 opacity-5 dark:opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(var(--pattern-color) 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
         {/* Ambient Glows (Dark Mode Only) */}
         <div className="hidden dark:block absolute top-0 right-0 w-[500px] h-[500px] bg-amber-600/20 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
@@ -173,16 +173,16 @@ export function HomePage() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16 space-y-4"
+            className="text-center mb-8 sm:mb-16 space-y-2 sm:space-y-4"
           >
-            <span className="text-amber-600 dark:text-amber-400 font-medium tracking-wider text-sm uppercase">Our Promise</span>
-            <h2 className="text-4xl text-slate-900 dark:text-white brand-font">
+            <span className="text-amber-600 dark:text-amber-400 font-medium tracking-wider text-xs sm:text-sm uppercase">Our Promise</span>
+            <h2 className="text-3xl sm:text-4xl text-slate-900 dark:text-white brand-font">
               Why Choose Lahori Samosa?
             </h2>
-            <div className="w-24 h-1 bg-amber-400 dark:bg-amber-500 mx-auto rounded-full"></div>
+            <div className="w-16 h-1 sm:w-24 bg-amber-400 dark:bg-amber-500 mx-auto rounded-full"></div>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {features.map((feature, index) => (
               <motion.div
                 key={feature.title}
@@ -191,22 +191,22 @@ export function HomePage() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.2 }}
                 whileHover={{ y: -10 }}
-                className="group p-8 bg-white dark:bg-white/5 backdrop-blur-md rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm dark:shadow-xl hover:shadow-2xl dark:hover:bg-white/10 transition-all duration-500 relative overflow-hidden"
+                className="group p-6 sm:p-8 bg-white dark:bg-white/5 backdrop-blur-md rounded-2xl border border-slate-100 dark:border-white/10 shadow-sm dark:shadow-xl hover:shadow-2xl dark:hover:bg-white/10 transition-all duration-500 relative overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 dark:hidden"></div>
 
                 <div className="relative z-10">
                   <motion.div
                     whileHover={{ rotate: 10, scale: 1.1 }}
-                    className="w-16 h-16 bg-amber-100 dark:bg-gradient-to-br dark:from-amber-400 dark:to-amber-600 rounded-2xl flex items-center justify-center mb-6 text-amber-700 dark:text-slate-950 shadow-inner dark:shadow-lg transition-colors duration-500"
+                    className="w-12 h-12 sm:w-16 sm:h-16 bg-amber-100 dark:bg-gradient-to-br dark:from-amber-400 dark:to-amber-600 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 text-amber-700 dark:text-slate-950 shadow-inner dark:shadow-lg transition-colors duration-500"
                   >
-                    <feature.icon className="w-8 h-8" />
+                    <feature.icon className="w-6 h-6 sm:w-8 sm:h-8" />
                   </motion.div>
 
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4 group-hover:text-amber-800 dark:group-hover:text-amber-400 transition-colors">
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-2 sm:mb-4 group-hover:text-amber-800 dark:group-hover:text-amber-400 transition-colors">
                     {feature.title}
                   </h3>
-                  <p className="text-slate-600 dark:text-slate-100/80 leading-relaxed group-hover:text-slate-700 dark:group-hover:text-white transition-colors">
+                  <p className="text-sm sm:text-base text-slate-600 dark:text-slate-100/80 leading-relaxed group-hover:text-slate-700 dark:group-hover:text-white transition-colors">
                     {feature.description}
                   </p>
                 </div>
@@ -342,11 +342,11 @@ export function HomePage() {
             </p>
           </motion.div>
 
-          <Link to="/products">
+          <Link to="/products" className="inline-block mt-8 sm:mt-10">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-3.5 sm:px-12 sm:py-6 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 rounded-2xl text-base sm:text-xl font-bold hover:shadow-2xl hover:shadow-amber-500/30 transition-all duration-300"
+              className="px-6 py-3 sm:px-10 sm:py-4 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 rounded-2xl text-sm sm:text-lg font-bold hover:shadow-2xl hover:shadow-amber-500/30 transition-all duration-300"
             >
               Start Shopping Now
             </motion.button>

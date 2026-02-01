@@ -9,28 +9,39 @@ const LOADING_PHASES = [
     "Finalizing Perfection"
 ];
 
-export function LuxuryLoader({ onComplete }: { onComplete: () => void }) {
+export function LuxuryLoader({ onComplete, assetsLoaded = false }: { onComplete: () => void, assetsLoaded?: boolean }) {
     const [progress, setProgress] = useState(0);
     const [phaseIndex, setPhaseIndex] = useState(0);
 
     useEffect(() => {
-        const duration = 6000;
+        // Minimum visual duration
+        const duration = 4000; // Slightly faster base time, effectively waits for assets
         const interval = 30;
         const step = (interval / duration) * 100;
 
         const timer = setInterval(() => {
             setProgress((prev) => {
-                if (prev >= 100) {
+                // Determine target progress based on assetsLoaded
+                // If assets are NOT loaded, we stall at 90%
+                const stallPoint = 95;
+
+                let next = prev + step;
+
+                if (!assetsLoaded && next >= stallPoint) {
+                    return stallPoint; // Wait here
+                }
+
+                if (next >= 100) {
                     clearInterval(timer);
-                    setTimeout(onComplete, 800);
+                    setTimeout(onComplete, 500); // Quick fade out
                     return 100;
                 }
-                return prev + step;
+                return next;
             });
         }, interval);
 
         return () => clearInterval(timer);
-    }, [onComplete]);
+    }, [onComplete, assetsLoaded]);
 
     useEffect(() => {
         const phaseDuration = 6000 / LOADING_PHASES.length;

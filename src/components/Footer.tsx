@@ -55,7 +55,7 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-slate-950 text-white pt-12 md:pt-20 pb-10 relative overflow-hidden font-sans border-t border-white/5">
+    <footer className="bg-slate-950 text-white pt-10 md:pt-20 pb-8 md:pb-10 relative overflow-hidden font-sans border-t border-white/5">
       {/* Abstract Background Shapes */}
       <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-slate-900/20 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-amber-600/10 rounded-full blur-[100px] translate-x-1/2 translate-y-1/2 pointer-events-none"></div>
@@ -63,13 +63,13 @@ export function Footer() {
       {/* Glass Texture Overlay */}
       <div className="absolute inset-0 bg-white/[0.02] pointer-events-none"></div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-10 sm:py-20 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-8">
 
-          {/* Brand Section */}
-          <div className="space-y-6 lg:col-span-1">
+          {/* BrandSection */}
+          <div className="space-y-4 md:space-y-6 lg:col-span-1">
             <Link to="/" onClick={handleLinkClick} className="block group">
-              <div className="text-3xl brand-font tracking-tight text-white group-hover:opacity-90 transition-opacity">
+              <div className="text-2xl md:text-3xl brand-font tracking-tight text-white group-hover:opacity-90 transition-opacity">
                 Lahori<span className="text-amber-400 italic"> Samosa</span>
               </div>
             </Link>
@@ -98,8 +98,8 @@ export function Footer() {
 
           {/* Quick Links */}
           <div className="lg:pl-8">
-            <h3 className="text-lg font-bold text-amber-400 mb-6 font-serif tracking-wide">Quick Links</h3>
-            <ul className="space-y-4">
+            <h3 className="text-base md:text-lg font-bold text-amber-400 mb-4 md:mb-6 font-serif tracking-wide">Quick Links</h3>
+            <ul className="space-y-3 md:space-y-4">
               {quickLinks.map((link) => (
                 <li key={link.name}>
                   <Link
@@ -117,35 +117,35 @@ export function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-lg font-bold text-amber-400 mb-6 font-serif tracking-wide">Contact Us</h3>
-            <ul className="space-y-5">
+            <h3 className="text-base md:text-lg font-bold text-amber-400 mb-3 md:mb-6 font-serif tracking-wide">Contact Us</h3>
+            <ul className="space-y-3 md:space-y-5">
               <li className="flex items-start gap-4 text-sm text-slate-100/80 group">
-                <div className="p-2 bg-white/5 rounded-lg border border-white/10 group-hover:border-amber-500/50 transition-colors">
-                  <Phone className="w-4 h-4 text-amber-400" />
+                <div className="p-1.5 md:p-2 bg-white/5 rounded-lg border border-white/10 group-hover:border-amber-500/50 transition-colors">
+                  <Phone className="w-3.5 h-3.5 md:w-4 md:h-4 text-amber-400" />
                 </div>
-                <div className="space-y-1">
+                <div className="space-y-0.5 md:space-y-1">
                   <span className="block text-xs text-slate-100/50 uppercase tracking-wider font-semibold">Phone</span>
-                  <span className="block font-medium text-white">{import.meta.env.VITE_BUSINESS_PHONE || "+92 324 4060113"}</span>
+                  <span className="block font-medium text-white text-xs md:text-sm">{import.meta.env.VITE_BUSINESS_PHONE || "+92 324 4060113"}</span>
                 </div>
               </li>
 
               <li className="flex items-start gap-4 text-sm text-slate-100/80 group">
-                <div className="p-2 bg-white/5 rounded-lg border border-white/10 group-hover:border-amber-500/50 transition-colors">
-                  <Mail className="w-4 h-4 text-amber-400" />
+                <div className="p-1.5 md:p-2 bg-white/5 rounded-lg border border-white/10 group-hover:border-amber-500/50 transition-colors">
+                  <Mail className="w-3.5 h-3.5 md:w-4 md:h-4 text-amber-400" />
                 </div>
-                <div className="space-y-1">
+                <div className="space-y-0.5 md:space-y-1">
                   <span className="block text-xs text-slate-100/50 uppercase tracking-wider font-semibold">Email</span>
-                  <span className="block font-medium text-white">{import.meta.env.VITE_BUSINESS_EMAIL || "samosastash@gmail.com"}</span>
+                  <span className="block font-medium text-white text-xs md:text-sm">{import.meta.env.VITE_BUSINESS_EMAIL || "samosastash@gmail.com"}</span>
                 </div>
               </li>
 
               <li className="flex items-start gap-4 text-sm text-slate-100/80 group">
-                <div className="p-2 bg-white/5 rounded-lg border border-white/10 group-hover:border-amber-500/50 transition-colors">
-                  <MapPin className="w-4 h-4 text-amber-400" />
+                <div className="p-1.5 md:p-2 bg-white/5 rounded-lg border border-white/10 group-hover:border-amber-500/50 transition-colors">
+                  <MapPin className="w-3.5 h-3.5 md:w-4 md:h-4 text-amber-400" />
                 </div>
-                <div className="space-y-1">
+                <div className="space-y-0.5 md:space-y-1">
                   <span className="block text-xs text-slate-100/50 uppercase tracking-wider font-semibold">Location</span>
-                  <span className="block font-medium text-white">{import.meta.env.VITE_BUSINESS_LOCATION || "Lahore, Pakistan"}</span>
+                  <span className="block font-medium text-white text-xs md:text-sm">{import.meta.env.VITE_BUSINESS_LOCATION || "Lahore, Pakistan"}</span>
                 </div>
               </li>
             </ul>
@@ -153,7 +153,7 @@ export function Footer() {
 
           {/* Newsletter / CTA */}
           <div>
-            <h3 className="text-lg font-bold text-amber-400 mb-6 font-serif tracking-wide">Stay Updated</h3>
+            <h3 className="text-base md:text-lg font-bold text-amber-400 mb-4 md:mb-6 font-serif tracking-wide">Stay Updated</h3>
             <p className="text-sm text-slate-100/70 mb-4 leading-relaxed">
               Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.
             </p>
@@ -194,15 +194,15 @@ export function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="my-12 h-px bg-gradient-to-r from-transparent via-slate-800 to-transparent"></div>
+        <div className="my-8 md:my-12 h-px bg-gradient-to-r from-transparent via-slate-800 to-transparent"></div>
 
         {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6 md:gap-0">
-          <p className="text-sm text-slate-100/50">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
+          <p className="text-xs md:text-sm text-slate-100/50">
             © {new Date().getFullYear()} Lahori Samosa. All rights reserved.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-8 text-sm text-slate-100/60 font-medium">
+          <div className="flex flex-wrap justify-center gap-4 md:gap-8 text-xs md:text-sm text-slate-100/60 font-medium">
             <Link to="/privacy-policy" onClick={handleLinkClick} className="hover:text-amber-400 transition-colors">Privacy Policy</Link>
             <Link to="/terms-of-service" onClick={handleLinkClick} className="hover:text-amber-400 transition-colors">Terms of Service</Link>
             <Link to="/shipping-info" onClick={handleLinkClick} className="hover:text-amber-400 transition-colors">Shipping Info</Link>
