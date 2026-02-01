@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
+import { supabase } from '../lib/supabase';
 import { MapPin, Phone, Mail, MessageCircle, Send, Clock, CheckCircle } from 'lucide-react';
-import { EMAIL_API_URL } from '../utils/emailConfig';
+import { SEO } from './SEO';
 
 export function ContactPage() {
   const [formData, setFormData] = useState({
@@ -13,6 +14,8 @@ export function ContactPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  // ... (rest of simple state/handlers can stay but let's just use exact lines to avoid drift)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -26,50 +29,28 @@ export function ContactPage() {
     setIsSubmitting(true);
 
     try {
+      // 1. Save to Supabase (for Admin Panel)
+      const { error: dbError } = await supabase
+        .from('messages')
+        .insert([{
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          subject: formData.subject,
+          message: formData.message,
+          read: false
+        }]);
 
-      // Send contact form email using Brevo
-      const response = await fetch(EMAIL_API_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          to: import.meta.env.VITE_BUSINESS_EMAIL || "samosastash@gmail.com",
-          subject: `New Contact Message: ${formData.subject}`,
-          htmlContent: `
-            <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
-              <h2 style="color: #d97706;">New Contact Form Submission</h2>
-              <p><strong>Name:</strong> ${formData.name}</p>
-              <p><strong>Email:</strong> ${formData.email}</p>
-              <p><strong>Phone:</strong> ${formData.phone || 'Not provided'}</p>
-              <p><strong>Subject:</strong> ${formData.subject}</p>
-              <div style="background: #f9f9f9; padding: 15px; border-left: 4px solid #d97706; margin-top: 20px;">
-                <p style="margin: 0;"><strong>Message:</strong></p>
-                <p style="margin-top: 10px; white-space: pre-wrap;">${formData.message}</p>
-              </div>
-            </div>
-          `
-        })
-      });
+      if (dbError) throw dbError;
 
-      if (response.ok) {
-        setSubmitted(true);
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+      }, 3000);
 
-        // Reset form after 3 seconds
-        setTimeout(() => {
-          setSubmitted(false);
-          setFormData({
-            name: '',
-            email: '',
-            phone: '',
-            subject: '',
-            message: ''
-          });
-        }, 3000);
-      } else {
-        alert('Failed to send message. Please try again or contact us directly.');
-      }
     } catch (error) {
+      console.error('Submission error:', error);
       alert('Failed to send message. Please try again or contact us directly.');
     } finally {
       setIsSubmitting(false);
@@ -128,6 +109,11 @@ export function ContactPage() {
 
   return (
     <div className="pt-16 bg-slate-50 dark:bg-slate-950 overflow-hidden transition-colors duration-500">
+      <SEO
+        title="Contact Us"
+        description="Get in touch with Lahori Samosa. Call us, WhatsApp, or visit us in Lahore for bulk orders and frozen food delivery."
+        canonical="https://lahorisamosa.com/contact"
+      />
       {/* Hero Section */}
       <section className="py-20 bg-slate-900 relative overflow-hidden">
         {/* Background gradients */}
@@ -297,7 +283,7 @@ export function ContactPage() {
                     boxShadow: "0 10px 25px -8px rgba(245, 158, 11, 0.3)"
                   }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full px-6 py-4 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-colors shadow-lg disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+                  className="w-full px-6 py-3 sm:py-4 bg-slate-900 dark:bg-amber-600 text-white dark:text-slate-950 rounded-lg hover:bg-slate-800 dark:hover:bg-amber-500 transition-colors shadow-lg disabled:opacity-50 disabled:cursor-not-allowed font-medium text-sm sm:text-base"
                 >
                   {isSubmitting ? (
                     <span className="flex items-center justify-center">
@@ -380,7 +366,7 @@ export function ContactPage() {
                       href="tel:+923244060113"
                       whileHover={{ scale: 1.02, x: 4 }}
                       whileTap={{ scale: 0.98 }}
-                      className="flex items-center p-4 bg-white/10 rounded-lg hover:bg-white/20 transition-all duration-300 backdrop-blur-sm border border-white/20"
+                      className="flex items-center p-3 sm:p-4 bg-white/10 rounded-lg hover:bg-white/20 transition-all duration-300 backdrop-blur-sm border border-white/20"
                     >
                       <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center mr-4">
                         <Phone className="w-5 h-5" />
@@ -397,7 +383,7 @@ export function ContactPage() {
                       rel="noopener noreferrer"
                       whileHover={{ scale: 1.02, x: 4 }}
                       whileTap={{ scale: 0.98 }}
-                      className="flex items-center p-4 bg-white/10 rounded-lg hover:bg-white/20 transition-all duration-300 backdrop-blur-sm border border-white/20"
+                      className="flex items-center p-3 sm:p-4 bg-white/10 rounded-lg hover:bg-white/20 transition-all duration-300 backdrop-blur-sm border border-white/20"
                     >
                       <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center mr-4">
                         <MessageCircle className="w-5 h-5" />

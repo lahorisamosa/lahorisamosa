@@ -5,6 +5,8 @@ import { ResponsiveImage } from './ResponsiveImage';
 
 import { useEffect, useRef } from 'react';
 
+import { SEO } from './SEO';
+
 export function HomePage() {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -41,6 +43,11 @@ export function HomePage() {
 
   return (
     <div className="bg-white overflow-hidden" ref={containerRef}>
+      <SEO
+        title="Home"
+        description="Welcome to Lahori Samosa. Authentic hand-crafted samosas and Pakistani street food delivered frozen to your doorstep in Lahore."
+        canonical="https://lahorisamosa.com"
+      />
       {/* Hero Section */}
       {/* Hero Section */}
       {/* Hero Section */}
@@ -109,9 +116,9 @@ export function HomePage() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-auto min-w-[140px] px-6 py-3 bg-amber-500 text-slate-950 rounded-full text-sm font-bold transition-all duration-300 shadow-[0_0_20px_rgba(245,158,11,0.4)] hover:shadow-[0_0_40px_rgba(245,158,11,0.6)] flex items-center justify-center gap-2"
+                  className="w-auto min-w-[120px] sm:min-w-[140px] px-5 py-2.5 sm:px-6 sm:py-3 bg-amber-500 text-slate-950 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 shadow-[0_0_20px_rgba(245,158,11,0.4)] hover:shadow-[0_0_40px_rgba(245,158,11,0.6)] flex items-center justify-center gap-2"
                 >
-                  Explore <ArrowRight className="w-4 h-4 ml-1" />
+                  Explore <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-1" />
                 </motion.button>
               </Link>
 
@@ -119,7 +126,7 @@ export function HomePage() {
                 <motion.button
                   whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.2)" }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-auto min-w-[140px] px-6 py-3 border border-white/40 text-white rounded-full text-sm hover:border-white transition-all duration-300 backdrop-blur-sm"
+                  className="w-auto min-w-[120px] sm:min-w-[140px] px-5 py-2.5 sm:px-6 sm:py-3 border border-white/40 text-white rounded-full text-xs sm:text-sm hover:border-white transition-all duration-300 backdrop-blur-sm"
                 >
                   Contact Us
                 </motion.button>
@@ -301,7 +308,7 @@ export function HomePage() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-10 py-4 bg-white text-slate-950 rounded-full font-bold shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all duration-300"
+                    className="px-6 py-3 sm:px-10 sm:py-4 bg-white text-slate-950 rounded-full font-bold shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all duration-300 text-sm sm:text-base"
                   >
                     Order Now - Rs.450
                   </motion.button>
@@ -339,7 +346,7 @@ export function HomePage() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-12 py-6 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 rounded-2xl text-xl font-bold hover:shadow-2xl hover:shadow-amber-500/30 transition-all duration-300"
+              className="px-8 py-3.5 sm:px-12 sm:py-6 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 rounded-2xl text-base sm:text-xl font-bold hover:shadow-2xl hover:shadow-amber-500/30 transition-all duration-300"
             >
               Start Shopping Now
             </motion.button>

@@ -4,6 +4,8 @@ import { motion } from 'motion/react';
 import { Banknote, ArrowLeft, CheckCircle, Phone, Send } from 'lucide-react';
 
 import { EMAIL_API_URL } from '../utils/emailConfig';
+import { supabase } from '../lib/supabase';
+import { APP_CONSTANTS } from '../utils/constants';
 
 interface CheckoutData {
   customerInfo: {
@@ -28,6 +30,8 @@ export function PaymentMethodPage() {
   const [loading, setLoading] = useState(false);
   const [paymentError, setPaymentError] = useState('');
 
+
+
   // Payment methods configuration
   const paymentMethods = [
     {
@@ -47,8 +51,8 @@ export function PaymentMethodPage() {
       hasDiscount: true,
       details: {
         title: 'JazzCash Account Details',
-        number: '+92 324 4060113',
-        accountName: 'Lahori Samosa' // Placeholder
+        number: APP_CONSTANTS.PAYMENT.JAZZCASH_NUMBER,
+        accountName: APP_CONSTANTS.PAYMENT.JAZZCASH_TITLE
       }
     },
     {
@@ -60,8 +64,8 @@ export function PaymentMethodPage() {
       hasDiscount: true,
       details: {
         title: 'Raast ID Details',
-        number: '+92 324 4060113',
-        accountName: 'Lahori Samosa' // Placeholder
+        number: APP_CONSTANTS.PAYMENT.RAAST_ID,
+        accountName: APP_CONSTANTS.PAYMENT.RAAST_TITLE
       }
     }
   ];
@@ -96,6 +100,10 @@ export function PaymentMethodPage() {
     return checkoutData.total;
   };
 
+
+
+  // ... existing code ...
+
   const handlePlaceOrder = async () => {
     if (!checkoutData || !selectedPayment) return;
 
@@ -109,7 +117,26 @@ export function PaymentMethodPage() {
       const finalTotal = getDiscountedTotal();
       const selectedMethodObj = paymentMethods.find(m => m.id === selectedPayment);
 
+      const orderPayload = {
+        id: orderId,
+        items: checkoutData.items,
+        total: finalTotal,
+        customer_info: checkoutData.customerInfo,
+        payment_method: selectedMethodObj?.name || selectedPayment,
+        status: 'pending'
+      };
 
+      // Save to Supabase
+      const { error: supabaseError } = await supabase
+        .from('orders')
+        .insert([orderPayload]);
+
+      if (supabaseError) {
+        console.error('Supabase error:', supabaseError);
+        // We continue even if Supabase fails? No, we should alert user or retry.
+        // But for now, let's throw so the user knows.
+        throw new Error('Failed to save order to database: ' + supabaseError.message);
+      }
 
       // Send email notification
       await sendOrderEmail(orderId, {
@@ -122,7 +149,7 @@ export function PaymentMethodPage() {
       // Clear checkout data
       localStorage.removeItem('checkoutData');
 
-      // Navigate to confirmation page with state
+      // Navigate to confirmation page
       navigate(`/confirmation/${orderId}`, {
         state: {
           order: {
@@ -145,19 +172,7 @@ export function PaymentMethodPage() {
 
   // Send order emails using Brevo (via local server)
   const sendOrderEmail = async (orderId: string, orderData: any) => {
-    const itemsList = orderData.items.map((item: any) =>
-      `<tr>
-          <td style="padding: 12px 0; border-bottom: 1px solid #edf2f7; width: 60px;">
-            ${item.image ? `<img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px; border: 1px solid #e2e8f0;">` : `<div style="width: 50px; height: 50px; background: #f8fafc; border-radius: 8px; text-align: center; line-height: 50px; font-size: 20px; border: 1px solid #e2e8f0;">🛒</div>`}
-          </td>
-          <td style="padding: 12px 10px; border-bottom: 1px solid #edf2f7;">
-            <div style="font-weight: 600; color: #1a202c; font-size: 15px;">${item.name}</div>
-            <div style="font-size: 13px; color: #718096; margin-top: 2px;">Rs.${item.price} per unit</div>
-          </td>
-          <td style="padding: 12px 10px; border-bottom: 1px solid #edf2f7; color: #4a5568; text-align: center; font-weight: 600;">x${item.quantity}</td>
-          <td style="padding: 12px 10px; border-bottom: 1px solid #edf2f7; color: #d97706; font-weight: 700; text-align: right; font-size: 15px;">Rs.${item.price * item.quantity}</td>
-        </tr>`
-    ).join('');
+
 
     // Shared CSS styles for premium look
     const bodyStyle = `background-color: #f7fafc; padding: 40px 20px; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;`;
@@ -167,19 +182,39 @@ export function PaymentMethodPage() {
     const footerStyle = `text-align: center; padding: 30px 20px; color: #718096; font-size: 13px; line-height: 1.5;`;
     const buttonStyle = `display: inline-block; padding: 14px 30px; background-color: #25D366; color: #ffffff; text-decoration: none; border-radius: 10px; font-weight: 700; font-size: 16px; margin-top: 20px; box-shadow: 0 4px 14px 0 rgba(37, 211, 102, 0.39);`;
 
+    const itemsList = orderData.items.map((item: any) => {
+      // Only show image if it's an absolute URL (starts with http), otherwise show emoji
+      const hasValidImage = item.image && item.image.startsWith('http');
+      const imageHtml = hasValidImage
+        ? `<img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px; border: 1px solid #e2e8f0;">`
+        : `<div style="width: 50px; height: 50px; background: #f8fafc; border-radius: 8px; text-align: center; line-height: 50px; font-size: 20px; border: 1px solid #e2e8f0;">🥟</div>`;
+
+      return `<tr>
+          <td style="padding: 12px 0; border-bottom: 1px solid #edf2f7; width: 60px;">
+            ${imageHtml}
+          </td>
+          <td style="padding: 12px 10px; border-bottom: 1px solid #edf2f7;">
+            <div style="font-weight: 600; color: #1a202c; font-size: 15px;">${item.name}</div>
+            <div style="font-size: 13px; color: #718096; margin-top: 2px;">Rs.${item.price} per unit</div>
+          </td>
+          <td style="padding: 12px 10px; border-bottom: 1px solid #edf2f7; color: #4a5568; text-align: center; font-weight: 600;">x${item.quantity}</td>
+          <td style="padding: 12px 10px; border-bottom: 1px solid #edf2f7; color: #d97706; font-weight: 700; text-align: right; font-size: 15px;">Rs.${item.price * item.quantity}</td>
+        </tr>`;
+    }).join('');
+
     // REDESIGNED CUSTOMER EMAIL
     if (orderData.customerInfo.email) {
       const customerHtml = `
           <div style="${bodyStyle}">
             <div style="${cardStyle}">
               <div style="${headerStyle}">
-                <div style="font-size: 14px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.9; margin-bottom: 8px;">Order Confirmed</div>
-                <h1 style="margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.5px;">Enjoy Your Samosas! 🥟</h1>
+                <div style="font-size: 14px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.9; margin-bottom: 8px;">Order Received</div>
+                <h1 style="margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.5px;">Thanks for your Order! 🙏</h1>
               </div>
               
               <div style="padding: 30px;">
                 <p style="font-size: 17px; color: #2d3748; margin-top: 0;">Hi <strong>${orderData.customerInfo.name}</strong>,</p>
-                <p style="color: #4a5568; font-size: 15px; line-height: 1.6;">Your order has been received and is now being prepared with love. We'll have it delivered to your doorstep soon!</p>
+                <p style="color: #4a5568; font-size: 15px; line-height: 1.6;">We’ve received your order! Our team is currently reviewing the details. Please wait while we confirm your order.</p>
                 
                 <div style="background-color: #fffaf0; border: 1px solid #fbd38d; border-radius: 12px; padding: 20px; margin: 25px 0;">
                   <table style="width: 100%;">
@@ -214,27 +249,27 @@ export function PaymentMethodPage() {
                 <div style="margin-top: 40px; border-top: 2px dashed #e2e8f0; padding-top: 30px; text-align: center;">
                   <div style="font-weight: 700; color: #2d3748; font-size: 16px; margin-bottom: 10px;">Need to update your order?</div>
                   <p style="color: #718096; font-size: 14px; margin-bottom: 20px;">Contact us instantly on WhatsApp and we'll help you out!</p>
-                  <a href="https://wa.me/923244060113?text=Hi,%20I'm%20tracking%20my%20order%20%23${orderId}" style="${buttonStyle}">
+                  <a href="${APP_CONSTANTS.CONTACT.WHATSAPP_URL}?text=Hi,%20I'm%20tracking%20my%20order%20%23${orderId}" style="${buttonStyle}">
                     💬 Chat on WhatsApp
-                  </a>
-                </div>
-              </div>
-            </div>
-            
-            <div style="${footerStyle}">
-              <p style="margin-bottom: 5px; font-weight: 700; color: #4a5568;">Lahori Samosa</p>
-              <p style="margin: 0;">Deliciously Authentic. Delicously Fresh.</p>
-              <p style="margin: 15px 0 0 0; opacity: 0.7;">&copy; ${new Date().getFullYear()} Lahori Samosa. All rights reserved.</p>
-            </div>
-          </div>
-        `;
+                  </a >
+                </div >
+              </div >
+            </div >
+
+    <div style="${footerStyle}">
+      <p style="margin-bottom: 5px; font-weight: 700; color: #4a5568;">Lahori Samosa</p>
+      <p style="margin: 0;">Deliciously Authentic. Delicously Fresh.</p>
+      <p style="margin: 15px 0 0 0; opacity: 0.7;">&copy; ${new Date().getFullYear()} Lahori Samosa. All rights reserved.</p>
+    </div>
+          </div >
+    `;
 
       const response = await fetch(EMAIL_API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           to: orderData.customerInfo.email,
-          subject: `✅ Order Confirmed: #${orderId}`,
+          subject: `🛒 Order Received: #${orderId} `,
           htmlContent: customerHtml
         })
       });
@@ -300,12 +335,12 @@ export function PaymentMethodPage() {
                     whileHover={{ scale: method.available ? 1.01 : 1 }}
                     whileTap={{ scale: method.available ? 0.99 : 1 }}
                     onClick={() => handlePaymentSelection(method.id)}
-                    className={`p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 ${selectedPayment === method.id
+                    className={`p - 4 border - 2 rounded - lg cursor - pointer transition - all duration - 200 ${selectedPayment === method.id
                       ? 'border-amber-600 bg-amber-50 dark:bg-amber-900/20'
                       : method.available
                         ? 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-amber-400 dark:hover:border-amber-500 hover:shadow-md'
                         : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 cursor-not-allowed opacity-60'
-                      }`}
+                      } `}
                   >
                     <div className="flex items-center">
                       <div className="mr-4 p-2 bg-slate-100 dark:bg-slate-800 rounded-full">
@@ -366,7 +401,7 @@ export function PaymentMethodPage() {
                           After transferring <span className="font-bold">Rs.{finalTotal}</span>, please send a screenshot or transaction ID to our WhatsApp number for verification.
                         </p>
                         <p className="text-sm font-bold text-blue-800 dark:text-blue-300 mt-2">
-                          WhatsApp: +92 324 4060113
+                          WhatsApp: {APP_CONSTANTS.CONTACT.PHONE}
                         </p>
                       </div>
                     </div>
@@ -472,7 +507,7 @@ export function PaymentMethodPage() {
                 disabled={loading}
                 className="w-full px-6 py-4 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors shadow-lg text-lg disabled:opacity-50 disabled:cursor-not-allowed font-bold"
               >
-                {loading ? 'Placing Order...' : `Place Order (Rs.${finalTotal})`}
+                {loading ? 'Placing Order...' : `Place Order(Rs.${finalTotal})`}
               </motion.button>
             )}
 

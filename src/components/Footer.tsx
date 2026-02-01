@@ -1,8 +1,38 @@
+import { useState } from 'react';
+import { supabase } from '../lib/supabase';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Facebook, Instagram, MessageCircle, Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
+import { Facebook, Instagram, MessageCircle, Phone, Mail, MapPin, ArrowRight, CheckCircle } from 'lucide-react';
 
 export function Footer() {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+
+    setStatus('loading');
+    try {
+      const { error } = await supabase
+        .from('subscribers')
+        .insert([{ email }]);
+
+      if (error) {
+        if (error.code === '23505') { // Unique violation
+          setStatus('success'); // Treat as success to not annoy user
+        } else {
+          throw error;
+        }
+      } else {
+        setStatus('success');
+        setEmail('');
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus('error');
+    }
+  };
   const quickLinks = [
     { name: 'Home', path: '/' },
     { name: 'Products', path: '/products' },
@@ -127,17 +157,37 @@ export function Footer() {
             <p className="text-sm text-slate-100/70 mb-4 leading-relaxed">
               Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.
             </p>
-            <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-3" onSubmit={handleSubscribe}>
               <div className="relative">
                 <input
                   type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 pl-4 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-amber-500_50 focus:ring-1 focus:ring-amber-500/50 transition-all"
+                  required
+                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 pl-4 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-amber-500_50 focus:ring-1 focus:ring-amber-500/50 transition-all disabled:opacity-50"
+                  disabled={status === 'loading' || status === 'success'}
                 />
-                <button type="submit" className="absolute right-1 top-1 p-2 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-md transition-colors">
-                  <ArrowRight className="w-4 h-4" />
+                <button
+                  type="submit"
+                  disabled={status === 'loading' || status === 'success'}
+                  className="absolute right-1 top-1 p-2 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-md transition-colors disabled:opacity-70"
+                >
+                  {status === 'loading' ? (
+                    <div className="w-4 h-4 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
+                  ) : status === 'success' ? (
+                    <CheckCircle className="w-4 h-4" />
+                  ) : (
+                    <ArrowRight className="w-4 h-4" />
+                  )}
                 </button>
               </div>
+              {status === 'success' && (
+                <p className="text-xs text-green-400">Thanks for subscribing!</p>
+              )}
+              {status === 'error' && (
+                <p className="text-xs text-red-400">Something went wrong. Try again.</p>
+              )}
             </form>
           </div>
 

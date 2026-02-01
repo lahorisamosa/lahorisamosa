@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { ShoppingCart, Star, Plus, ArrowRight } from 'lucide-react';
+import { Star, Plus, ArrowRight } from 'lucide-react';
 import { useCart, Product } from './CartContext';
 import { ResponsiveImage } from './ResponsiveImage';
+import { SEO } from './SEO';
 
 export function ProductsPage() {
   const { dispatch } = useCart();
@@ -69,6 +70,11 @@ export function ProductsPage() {
 
   return (
     <div className="pt-16 bg-slate-50 dark:bg-slate-950 min-h-screen transition-colors duration-500">
+      <SEO
+        title="Menu & Prices"
+        description="Browse our menu of frozen samosas, including Chicken Qeema, Pizza Samosa, and more. Authentic taste, premium quality."
+        canonical="https://lahorisamosa.com/products"
+      />
       {/* Page Header */}
       <section className="py-20 bg-slate-900 relative overflow-hidden">
         {/* Background gradients */}
@@ -207,9 +213,9 @@ export function ProductsPage() {
                 boxShadow: "0 20px 40px -12px rgba(245, 158, 11, 0.3)"
               }}
               whileTap={{ scale: 0.95 }}
-              className="px-10 py-5 bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-full transition-all duration-300 shadow-lg font-bold flex items-center gap-2 mx-auto hover:shadow-amber-500/20"
+              className="px-6 py-3 sm:px-10 sm:py-5 bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-full transition-all duration-300 shadow-lg font-bold flex items-center gap-2 mx-auto hover:shadow-amber-500/20 text-sm sm:text-base"
             >
-              Get in Touch <ArrowRight className="w-5 h-5" />
+              Get in Touch <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </motion.button>
           </Link>
         </div>

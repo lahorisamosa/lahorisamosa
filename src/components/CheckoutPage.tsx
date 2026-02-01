@@ -197,7 +197,7 @@ export function CheckoutPage() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={handleProceedToCheckout}
-              className="w-full px-6 py-4 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors shadow-lg text-lg font-bold"
+              className="w-full px-6 py-3 sm:py-4 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors shadow-lg text-base sm:text-lg font-bold"
             >
               Proceed to Checkout
             </motion.button>

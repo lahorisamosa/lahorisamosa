@@ -59,7 +59,7 @@ export function Header() {
                 whileHover={{ scale: 1.05 }}
                 className="relative"
               >
-                <span className={`text-lg sm:text-2xl brand-font tracking-tight font-bold transition-colors duration-300 ${isScrolled || location.pathname !== '/'
+                <span className={`text-base sm:text-2xl brand-font tracking-tight font-bold transition-colors duration-300 ${isScrolled || location.pathname !== '/'
                   ? 'text-slate-900 dark:text-white'
                   : 'text-white'
                   }`}>
@@ -185,7 +185,7 @@ export function Header() {
                   <Link
                     to="/products"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block w-full text-center px-4 py-3 mt-4 bg-amber-500 text-slate-950 rounded-xl text-sm font-medium shadow-md"
+                    className="block w-full text-center px-4 py-2.5 mt-3 bg-amber-500 text-slate-950 rounded-xl text-sm font-medium shadow-md"
                   >
                     Order Now
                   </Link>

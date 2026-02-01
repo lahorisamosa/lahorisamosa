@@ -56,11 +56,18 @@
 
 /* Chatbot Z-Index Override to prevent blocking mobile menu */
 #brevo-conversations-widget-wrapper {
-  z-index: 40 !important; /* Lower than Header's z-[10000] */
+  z-index: 40 !important;
+  /* Lower than Header's z-[10000] */
 }
 
 @media (max-width: 768px) {
-  #brevo-conversations-widget-wrapper {
-    bottom: 80px !important; /* Move up slightly to avoid footer conflict */
+
+  #brevo-conversations-widget-wrapper,
+  #brevo-conversations-root,
+  .brevo-conversations-widget {
+    bottom: 16px !important;
+    right: 16px !important;
+    transform: scale(0.5) !important;
+    transform-origin: bottom right !important;
   }
 }

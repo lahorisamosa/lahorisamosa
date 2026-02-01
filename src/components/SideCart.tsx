@@ -168,7 +168,7 @@ export function SideCart() {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full py-4 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors flex items-center justify-center space-x-2 font-medium"
+                    className="w-full py-3 sm:py-4 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors flex items-center justify-center space-x-2 font-medium text-sm sm:text-base"
                   >
                     <span>Proceed to Checkout</span>
                     <ArrowRight className="w-5 h-5" />
@@ -178,7 +178,7 @@ export function SideCart() {
                 {/* Continue Shopping */}
                 <button
                   onClick={handleClose}
-                  className="w-full py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors text-sm font-medium"
+                  className="w-full py-2 sm:py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors text-sm font-medium"
                 >
                   Continue Shopping
                 </button>
