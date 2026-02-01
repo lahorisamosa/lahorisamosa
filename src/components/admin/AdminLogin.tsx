@@ -60,7 +60,7 @@ export function AdminLogin() {
                                 setPin(e.target.value);
                                 setError('');
                             }}
-                            placeholder="Enter Security PIN"
+                            placeholder="Enter Admin Password"
                             className="w-full pl-12 pr-4 py-4 bg-slate-900/50 border border-slate-700 rounded-xl text-white placeholder:text-slate-600 focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500/50 focus:bg-slate-900 transition-all outline-none text-lg tracking-widest text-center"
                             autoFocus
                         />
