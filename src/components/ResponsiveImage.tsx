@@ -54,19 +54,9 @@ export function ResponsiveImage({
     return () => observer.disconnect();
   }, [priority, isInView]);
 
-  // Handle image loading
-  useEffect(() => {
-    if (!isInView) return;
+  // No manual preloader needed, let the browser handle it with loading="lazy"
+  // and we just track the onLoad event from the actual img tag.
 
-    const img = new Image();
-    img.onload = () => {
-      setIsLoaded(true);
-    };
-    img.onerror = () => {
-      setIsError(true);
-    };
-    img.src = src;
-  }, [src, isInView]);
 
   // Get responsive image styles
   const getImageStyles = () => {
@@ -116,7 +106,7 @@ export function ResponsiveImage({
   };
 
   return (
-    <div 
+    <div
       ref={containerRef}
       className={`relative ${className}`}
       style={containerStyles}
@@ -135,18 +125,19 @@ export function ResponsiveImage({
         </div>
       )}
 
-      {/* Show actual image when loaded */}
-      {isLoaded && !isError && (
+      {/* Show actual image when in view or priority */}
+      {(isInView || priority) && !isError && (
         <motion.img
           ref={imgRef}
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          animate={{ opacity: isLoaded ? 1 : 0 }}
           transition={{ duration: 0.3 }}
           src={src}
           alt={alt}
           style={getImageStyles()}
           loading={priority ? 'eager' : 'lazy'}
           decoding="async"
+          onLoad={() => setIsLoaded(true)}
           onError={() => setIsError(true)}
         />
       )}

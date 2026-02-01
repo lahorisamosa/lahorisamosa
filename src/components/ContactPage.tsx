@@ -145,9 +145,9 @@ export function ContactPage() {
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {contactInfo.map((info, index) => (
-              <motion.div
+              <motion.li
                 key={info.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -160,6 +160,14 @@ export function ContactPage() {
                 }}
                 className="group text-center p-8 bg-white dark:bg-slate-900 rounded-xl hover:shadow-2xl transition-all duration-300 border border-slate-100 dark:border-slate-800 cursor-pointer"
                 onClick={() => info.action && window.open(info.action, info.action.startsWith('http') ? '_blank' : '_self')}
+                aria-label={`Contact via ${info.title}: ${info.details}`}
+                role="button"
+                tabIndex={0}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    info.action && window.open(info.action, info.action.startsWith('http') ? '_blank' : '_self');
+                  }
+                }}
               >
                 <motion.div
                   whileHover={{ scale: 1.1, rotate: 5 }}
@@ -172,9 +180,9 @@ export function ContactPage() {
                 </h3>
                 <p className="text-amber-700 mb-2 font-medium">{info.details}</p>
                 <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{info.description}</p>
-              </motion.div>
+              </motion.li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
@@ -416,9 +424,9 @@ export function ContactPage() {
             </p>
           </motion.div>
 
-          <div className="space-y-6">
+          <ul className="space-y-6">
             {faqs.map((faq, index) => (
-              <motion.div
+              <motion.li
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -432,9 +440,9 @@ export function ContactPage() {
               >
                 <h3 className="text-lg text-slate-900 dark:text-white mb-3 font-medium">{faq.question}</h3>
                 <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{faq.answer}</p>
-              </motion.div>
+              </motion.li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
     </div>

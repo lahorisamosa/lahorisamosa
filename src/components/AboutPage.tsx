@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { Heart, Users, Award, Leaf, Clock, ChefHat, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { ImageWithFallback } from './figma/ImageWithFallback';
+import { ResponsiveImage } from './ResponsiveImage';
 import { SEO } from './SEO';
 
 export function AboutPage() {
@@ -30,26 +30,7 @@ export function AboutPage() {
     }
   ];
 
-  const team = [
-    {
-      name: "Chef Ahmed Khan",
-      role: "Head Chef & Founder",
-      image: "https://images.unsplash.com/photo-1659354219050-8ea76f10c2f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBjaGVmJTIwcG9ydHJhaXQlMjBtaW5pbWFsJTIwZWxlZ2FudHxlbnwxfHx8fDE3NTkwNTMwMzN8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      description: "With over 20 years of culinary experience, Chef Ahmed brings authentic Pakistani flavors to every dish."
-    },
-    {
-      name: "Fatima Ali",
-      role: "Quality Manager",
-      image: "https://images.unsplash.com/photo-1650784854945-264d5b0b6b07?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNidXNpbmVzcyUyMHByb2Zlc3Npb25hbCUyMHRlYW0lMjBwb3J0cmFpdCUyMGNsZWFuJTIwbWluaW1hbHxlbnwxfHx8fDE3NTkwNTMwMzd8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      description: "Fatima ensures every product meets our rigorous quality standards before reaching your table."
-    },
-    {
-      name: "Omar Sheikh",
-      role: "Operations Director",
-      image: "https://images.unsplash.com/photo-1650784854945-264d5b0b6b07?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNidXNpbmVzcyUyMHByb2Zlc3Npb25hbCUyMHRlYW0lMjBwb3J0cmFpdCUyMGNsZWFuJTIwbWluaW1hbHxlbnwxfHx8fDE3NTkwNTMwMzd8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      description: "Omar oversees our operations to ensure timely delivery and customer satisfaction."
-    }
-  ];
+
 
   return (
     <div className="pt-16 bg-white dark:bg-slate-950 overflow-hidden transition-colors duration-500">
@@ -60,6 +41,17 @@ export function AboutPage() {
       />
       {/* Hero Section */}
       <section className="py-20 bg-slate-900 relative overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <ResponsiveImage
+            src={heroImage}
+            alt="About Lahori Samosa background"
+            className="w-full h-full object-cover"
+            priority={true}
+          />
+          <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm"></div>
+        </div>
+
         {/* Background decoration */}
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
@@ -139,9 +131,9 @@ export function AboutPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
-              <motion.div
+              <motion.li
                 key={value.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -169,9 +161,9 @@ export function AboutPage() {
                 <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
                   {value.description}
                 </p>
-              </motion.div>
+              </motion.li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 

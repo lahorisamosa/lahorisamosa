@@ -55,26 +55,18 @@ export function HomePage() {
         {/* Static Background Image */}
         <div className="absolute inset-0 z-0">
           {/* Desktop Image (Landscape) */}
-          <div className="hidden md:block w-full h-full">
-            <ResponsiveImage
+          <picture>
+            <source media="(max-width: 768px)" srcSet={mobileHeroImage} />
+            <source media="(min-width: 769px)" srcSet={heroImage} />
+            <img
               src={heroImage}
-              alt="Hero Background Desktop"
-              className="w-full h-full object-center"
-              objectFit="cover"
-              priority={true}
+              alt="Lahori Samosa Hero Background"
+              className="w-full h-full object-cover object-center"
+              // @ts-ignore - fetchPriority is standard web API but React types might lag
+              fetchPriority="high"
+              loading="eager"
             />
-          </div>
-
-          {/* Mobile Image (Portrait) */}
-          <div className="block md:hidden w-full h-full">
-            <ResponsiveImage
-              src={mobileHeroImage}
-              alt="Hero Background Mobile"
-              className="w-full h-full object-center"
-              objectFit="cover"
-              priority={true}
-            />
-          </div>
+          </picture>
 
           {/* Lightened Overlay for maximum image visibility */}
           <div className="absolute inset-0 bg-black/20"></div>
@@ -182,9 +174,9 @@ export function HomePage() {
             <div className="w-16 h-1 sm:w-24 bg-amber-400 dark:bg-amber-500 mx-auto rounded-full"></div>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          <ul className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {features.map((feature, index) => (
-              <motion.div
+              <motion.li
                 key={feature.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -210,9 +202,9 @@ export function HomePage() {
                     {feature.description}
                   </p>
                 </div>
-              </motion.div>
+              </motion.li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 

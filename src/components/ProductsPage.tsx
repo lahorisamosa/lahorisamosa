@@ -146,6 +146,7 @@ export function ProductsPage() {
                           y: hoveredProduct === product.id ? 0 : 10
                         }}
                         onClick={(e) => handleAddToCart(product, e)}
+                        aria-label={`Add ${product.name} to cart`}
                         className="absolute bottom-4 right-4 w-10 h-10 sm:w-12 sm:h-12 bg-white dark:bg-slate-800 rounded-full shadow-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors flex items-center justify-center text-slate-700 dark:text-slate-200 z-20"
                       >
                         <Plus className="w-5 h-5 sm:w-6 sm:h-6" />

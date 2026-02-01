@@ -15,7 +15,7 @@ export function LuxuryLoader({ onComplete, assetsLoaded = false }: { onComplete:
 
     useEffect(() => {
         // Minimum visual duration
-        const duration = 4000; // Slightly faster base time, effectively waits for assets
+        const duration = 2000; // Reduced to 2s for better mobile experience
         const interval = 30;
         const step = (interval / duration) * 100;
 
@@ -44,7 +44,8 @@ export function LuxuryLoader({ onComplete, assetsLoaded = false }: { onComplete:
     }, [onComplete, assetsLoaded]);
 
     useEffect(() => {
-        const phaseDuration = 6000 / LOADING_PHASES.length;
+        const totalDuration = 3000; // Total time for all phases
+        const phaseDuration = totalDuration / LOADING_PHASES.length;
         const interval = setInterval(() => {
             setPhaseIndex((prev) => (prev < LOADING_PHASES.length - 1 ? prev + 1 : prev));
         }, phaseDuration);

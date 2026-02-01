@@ -41,16 +41,18 @@ export default function App() {
 
   const [assetsLoaded, setAssetsLoaded] = React.useState(false);
 
-  // Critical assets to preload
-  const CRITICAL_IMAGES = [
-    "/images/hero/heroimage.webp",
-    "/images/hero/hero-mobile.webp",
-    "/images/products/chickenqeema.webp" // Used in featured section
-  ];
+  // Critical assets to preload - only what's needed for the current screen
+  const getCriticalImages = () => {
+    const isMobile = window.innerWidth <= 768;
+    return [
+      isMobile ? "/images/hero/hero-mobile.webp" : "/images/hero/heroimage.webp",
+      "/images/products/chickenqeema.webp" // Used in featured section
+    ];
+  };
 
   const preloadImages = async (srcs: string[]) => {
     const promises = srcs.map((src) => {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         // If image is already cached, resolve immediately (though new Image() usually handles this)
         const img = new Image();
         img.src = src;
@@ -63,11 +65,26 @@ export default function App() {
 
   React.useEffect(() => {
     // Start preloading immediately
-    preloadImages(CRITICAL_IMAGES).then(() => {
+    const criticalImages = getCriticalImages();
+
+    // Set a maximum wait time for preloading (e.g., 3 seconds)
+    // to ensure the site loads even on super slow connections
+    const timer = setTimeout(() => {
+      if (!assetsLoaded) {
+        console.log('Preloading timed out - showing site anyway');
+        setAssetsLoaded(true);
+      }
+    }, 3000);
+
+    preloadImages(criticalImages).then(() => {
       console.log('Critical assets loaded');
       setAssetsLoaded(true);
+      clearTimeout(timer);
     });
+
+    return () => clearTimeout(timer);
   }, []);
+
 
   // Hide Brevo Chat during loading
   React.useEffect(() => {

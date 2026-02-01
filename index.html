@@ -15,6 +15,14 @@
   <meta name="apple-mobile-web-app-title" content="Lahori Samosa" />
   <link rel="manifest" href="/images/favicon/site.webmanifest" />
 
+  <link rel="preconnect" href="https://conversations-widget.brevo.com" />
+  <link rel="preconnect" href="https://images.unsplash.com" />
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+
   <!-- Brevo Conversations {literal} -->
   <script>
     (function (d, w, c) {
@@ -24,16 +32,12 @@
       };
       var s = d.createElement('script');
       s.async = true;
+      s.defer = true;
       s.src = 'https://conversations-widget.brevo.com/brevo-conversations.js';
       if (d.head) d.head.appendChild(s);
     })(document, window, 'BrevoConversations');
   </script>
   <!-- /Brevo Conversations {/literal} -->
-</head>
-
-<body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.tsx"></script>
 </body>
 
 </html>

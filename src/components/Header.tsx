@@ -71,10 +71,12 @@ export function Header() {
                 whileHover={{ scale: 1.05 }}
                 className="relative"
               >
-                <span className={`text-base sm:text-2xl brand-font tracking-tight font-bold transition-colors duration-300 ${isScrolled || location.pathname !== '/'
-                  ? 'text-slate-900 dark:text-white'
-                  : 'text-white'
-                  }`}>
+                <span
+                  aria-label="Lahori Samosa Home"
+                  className={`text-base sm:text-2xl brand-font tracking-tight font-bold transition-colors duration-300 ${isScrolled || location.pathname !== '/'
+                    ? 'text-slate-900 dark:text-white'
+                    : 'text-white'
+                    }`}>
                   Lahori<span className="text-amber-500 italic"> Samosa</span>
                 </span>
               </motion.div>
@@ -136,6 +138,7 @@ export function Header() {
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
+                  aria-label="View Shopping Cart"
                   className={`relative p-1.5 sm:p-2 rounded-full transition-colors ${isScrolled || location.pathname !== '/'
                     ? 'text-slate-600 hover:text-amber-600 bg-slate-50/50 dark:text-slate-100 dark:hover:text-amber-400 dark:bg-white/5'
                     : 'text-white hover:text-amber-400 bg-white/10 backdrop-blur-sm'
@@ -157,6 +160,7 @@ export function Header() {
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label={isMobileMenuOpen ? "Close Menu" : "Open Menu"}
                 className={`md:hidden p-1.5 sm:p-2 rounded-full transition-colors ${isScrolled
                   ? 'text-slate-600 hover:text-amber-600 bg-slate-50/50 dark:text-white dark:bg-white/10'
                   : 'text-white hover:text-amber-400 bg-white/10 backdrop-blur-sm'
@@ -180,28 +184,31 @@ export function Header() {
                 exit={{ height: 0, opacity: 0 }}
                 className="md:hidden overflow-hidden"
               >
-                <div className="py-4 space-y-2 border-t border-slate-200/60 mt-2">
+                <ul className="py-4 space-y-2 border-t border-slate-200/60 mt-2">
                   {navLinks.map((link) => (
-                    <Link
-                      key={link.name}
-                      to={link.path}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className={`block px-4 py-3 text-sm font-medium transition-colors rounded-xl ${location.pathname === link.path
-                        ? 'text-slate-900 bg-amber-50/80 border border-amber-100'
-                        : 'text-slate-600 hover:text-amber-600 hover:bg-slate-50/50'
-                        }`}
-                    >
-                      {link.name}
-                    </Link>
+                    <li key={link.name}>
+                      <Link
+                        to={link.path}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className={`block px-4 py-3 text-sm font-medium transition-colors rounded-xl ${location.pathname === link.path
+                          ? 'text-slate-900 bg-amber-50/80 border border-amber-100'
+                          : 'text-slate-600 hover:text-amber-600 hover:bg-slate-50/50'
+                          }`}
+                      >
+                        {link.name}
+                      </Link>
+                    </li>
                   ))}
-                  <Link
-                    to="/products"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block w-full text-center px-4 py-2.5 mt-3 bg-amber-500 text-slate-950 rounded-xl text-sm font-medium shadow-md"
-                  >
-                    Order Now
-                  </Link>
-                </div>
+                  <li>
+                    <Link
+                      to="/products"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="block w-full text-center px-4 py-2.5 mt-3 bg-amber-500 text-slate-950 rounded-xl text-sm font-medium shadow-md"
+                    >
+                      Order Now
+                    </Link>
+                  </li>
+                </ul>
               </motion.nav>
             )}
           </AnimatePresence>

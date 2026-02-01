@@ -167,21 +167,21 @@ export function ProductDetailPage() {
             </p>
 
             {/* Features Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
                 { icon: ShieldCheck, text: "Premium Ingredients" },
                 { icon: Clock, text: "Ready in 10 mins" },
                 { icon: CheckCircle, text: "Authentic Taste" },
                 { icon: Star, text: "No Preservatives" },
               ].map((feature, i) => (
-                <div key={i} className="flex items-center space-x-3 bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                <li key={i} className="flex items-center space-x-3 bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
                   <div className="bg-amber-50 dark:bg-amber-900/20 p-2 rounded-lg text-amber-600 dark:text-amber-500">
                     <feature.icon className="w-4 h-4" />
                   </div>
                   <span className="text-slate-700 dark:text-slate-300 font-medium text-sm">{feature.text}</span>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
 
             {/* Controls */}
             <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-lg border border-slate-100 dark:border-slate-800 space-y-6">
@@ -193,6 +193,7 @@ export function ProductDetailPage() {
                     whileHover={{ backgroundColor: '#fff', scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                    aria-label="Decrease quantity"
                     className="p-3 rounded-lg text-slate-600 dark:text-slate-400 hover:text-amber-700 dark:hover:text-amber-500 hover:shadow-sm transition-all"
                   >
                     <Minus className="w-4 h-4" />
@@ -202,6 +203,7 @@ export function ProductDetailPage() {
                     whileHover={{ backgroundColor: '#fff', scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setQuantity(quantity + 1)}
+                    aria-label="Increase quantity"
                     className="p-3 rounded-lg text-slate-600 dark:text-slate-400 hover:text-amber-700 dark:hover:text-amber-500 hover:shadow-sm transition-all"
                   >
                     <Plus className="w-4 h-4" />

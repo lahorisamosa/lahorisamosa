@@ -68,7 +68,7 @@ export function Footer() {
 
           {/* BrandSection */}
           <div className="space-y-4 md:space-y-6 lg:col-span-1">
-            <Link to="/" onClick={handleLinkClick} className="block group">
+            <Link to="/" onClick={handleLinkClick} className="block group" aria-label="Lahori Samosa Home">
               <div className="text-2xl md:text-3xl brand-font tracking-tight text-white group-hover:opacity-90 transition-opacity">
                 Lahori<span className="text-amber-400 italic"> Samosa</span>
               </div>
@@ -159,7 +159,9 @@ export function Footer() {
             </p>
             <form className="space-y-3" onSubmit={handleSubscribe}>
               <div className="relative">
+                <label htmlFor="newsletter-email" className="sr-only">Email Address</label>
                 <input
+                  id="newsletter-email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -170,6 +172,7 @@ export function Footer() {
                 />
                 <button
                   type="submit"
+                  aria-label="Subscribe to newsletter"
                   disabled={status === 'loading' || status === 'success'}
                   className="absolute right-1 top-1 p-2 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-md transition-colors disabled:opacity-70"
                 >
