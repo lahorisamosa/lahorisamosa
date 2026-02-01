@@ -3,7 +3,7 @@ export const APP_CONSTANTS = {
     CONTACT: {
         PHONE: '+92 324 4060113',
         ADDRESS: 'Lahore, Pakistan', // Update with specific address if known
-        EMAIL: 'samosastash@gmail.com',
+        EMAIL: 'info.lahorisamosa@gmail.com',
         WHATSAPP_URL: 'https://wa.me/923244060113'
     },
     PAYMENT: {

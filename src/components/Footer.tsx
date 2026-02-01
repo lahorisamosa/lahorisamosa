@@ -135,7 +135,7 @@ export function Footer() {
                 </div>
                 <div className="space-y-0.5 md:space-y-1">
                   <span className="block text-xs text-slate-100/50 uppercase tracking-wider font-semibold">Email</span>
-                  <span className="block font-medium text-white text-xs md:text-sm">{import.meta.env.VITE_BUSINESS_EMAIL || "samosastash@gmail.com"}</span>
+                  <span className="block font-medium text-white text-xs md:text-sm">{import.meta.env.VITE_BUSINESS_EMAIL || "info.lahorisamosa@gmail.com"}</span>
                 </div>
               </li>
 

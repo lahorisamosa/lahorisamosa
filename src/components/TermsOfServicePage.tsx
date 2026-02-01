@@ -177,13 +177,13 @@ export function TermsOfServicePage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
               <motion.a
-                href="mailto:samosastash@gmail.com"
+                href="mailto:info.lahorisamosa@gmail.com"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="flex items-center justify-center space-x-3 bg-slate-100 dark:bg-slate-800 rounded-lg px-6 py-4 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-300"
               >
                 <Mail className="w-5 h-5 text-amber-600 dark:text-amber-500" />
-                <span className="text-slate-900 dark:text-white">samosastash@gmail.com</span>
+                <span className="text-slate-900 dark:text-white">info.lahorisamosa@gmail.com</span>
               </motion.a>
 
               <motion.a

@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { Heart, Users, Award, Leaf, Clock, ChefHat, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { SEO } from './SEO';
 
 export function AboutPage() {
   const heroImage = "https://images.unsplash.com/photo-1659354218430-ac7f0b31e977?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwa2l0Y2hlbiUyMGNoZWYlMjBjb29raW5nJTIwcHJvZmVzc2lvbmFsJTIwY2xlYW58ZW58MXx8fHwxNzU5MDUzMDMwfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
@@ -52,6 +53,11 @@ export function AboutPage() {
 
   return (
     <div className="pt-16 bg-white dark:bg-slate-950 overflow-hidden transition-colors duration-500">
+      <SEO
+        title="About Us"
+        description="Learn about Lahori Samosa's journey, our passion for quality, and our commitment to bringing authentic Pakistani flavors to your table."
+        canonical="https://lahorisamosa.com/about"
+      />
       {/* Hero Section */}
       <section className="py-20 bg-slate-900 relative overflow-hidden">
         {/* Background decoration */}

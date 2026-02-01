@@ -68,9 +68,9 @@ export function ContactPage() {
     {
       icon: Mail,
       title: "Email",
-      details: import.meta.env.VITE_BUSINESS_EMAIL || "samosastash@gmail.com",
+      details: import.meta.env.VITE_BUSINESS_EMAIL || "info.lahorisamosa@gmail.com",
       description: "We'll respond within 24 hours",
-      action: `mailto:${import.meta.env.VITE_BUSINESS_EMAIL || 'samosastash@gmail.com'}`
+      action: `mailto:${import.meta.env.VITE_BUSINESS_EMAIL || 'info.lahorisamosa@gmail.com'}`
     },
     {
       icon: MapPin,
