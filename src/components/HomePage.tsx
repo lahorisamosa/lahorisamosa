@@ -46,7 +46,7 @@ export function HomePage() {
       <SEO
         title="Home"
         description="Welcome to Lahori Samosa. Authentic hand-crafted samosas and Pakistani street food delivered frozen to your doorstep in Lahore."
-        canonical="https://lahorisamosa.com"
+        canonical="https://lahorisamosa.shop"
       />
       {/* Hero Section */}
       {/* Hero Section */}

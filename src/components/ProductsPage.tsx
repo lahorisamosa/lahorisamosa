@@ -73,7 +73,7 @@ export function ProductsPage() {
       <SEO
         title="Menu & Prices"
         description="Browse our menu of frozen samosas, including Chicken Qeema, Pizza Samosa, and more. Authentic taste, premium quality."
-        canonical="https://lahorisamosa.com/products"
+        canonical="https://lahorisamosa.shop/products"
       />
       {/* Page Header */}
       <section className="py-20 bg-slate-900 relative overflow-hidden">

@@ -56,7 +56,7 @@ export function AboutPage() {
       <SEO
         title="About Us"
         description="Learn about Lahori Samosa's journey, our passion for quality, and our commitment to bringing authentic Pakistani flavors to your table."
-        canonical="https://lahorisamosa.com/about"
+        canonical="https://lahorisamosa.shop/about"
       />
       {/* Hero Section */}
       <section className="py-20 bg-slate-900 relative overflow-hidden">

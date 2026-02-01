@@ -112,7 +112,7 @@ export function ContactPage() {
       <SEO
         title="Contact Us"
         description="Get in touch with Lahori Samosa. Call us, WhatsApp, or visit us in Lahore for bulk orders and frozen food delivery."
-        canonical="https://lahorisamosa.com/contact"
+        canonical="https://lahorisamosa.shop/contact"
       />
       {/* Hero Section */}
       <section className="py-20 bg-slate-900 relative overflow-hidden">
