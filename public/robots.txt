@@ -4,4 +4,4 @@ Disallow: /admin
 Disallow: /checkout
 Disallow: /confirmation/*
 
-Sitemap: https://lahorisamosa.com/sitemap.xml
+Sitemap: https://lahorisamosa.shop/sitemap.xml

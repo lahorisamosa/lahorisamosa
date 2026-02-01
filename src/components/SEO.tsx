@@ -16,7 +16,7 @@ export const SEO = ({
     type = 'website',
     image = '/images/hero-bg.jpg' // Default sharing image (ensure this exists or use a valid one)
 }: SEOProps) => {
-    const siteUrl = 'https://lahorisamosa.com'; // Replace with actual domain if known, or keep generic
+    const siteUrl = 'https://lahorisamosa.shop'; // Replace with actual domain if known, or keep generic
     const currentUrl = canonical || siteUrl;
     const fullTitle = `${title} | Lahori Samosa`;
 
